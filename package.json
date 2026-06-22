@@ -1,0 +1,30 @@
+{
+  "name": "probusiness_consolidado_landingv2",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "upload:assets": "node scripts/upload-assets.mjs",
+    "deploy:assets": "npm run optimize:images && npm run upload:assets",
+    "download:assets": "node scripts/download-figma-assets.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.1",
+    "astro": "^6.4.6",
+    "tailwindcss": "^4.3.1"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1",
+    "vite": "^7.3.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.1"
+  }
+}

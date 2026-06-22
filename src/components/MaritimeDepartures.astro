@@ -1,0 +1,186 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+
+const departures = [
+  { day: '30', month: 'MAYO' },
+  { day: '15', month: 'JUNIO' },
+];
+---
+
+<section class="maritime section-gray site-section--lg">
+  <div class="site-container maritime__container">
+    <div class="maritime__grid">
+      <div class="maritime__copy">
+        <p class="maritime__route font-epilogue text-black/70">China – Perú</p>
+        <h2 class="maritime__title font-epilogue font-medium text-black">Próximas salidas marítimas</h2>
+        <p class="maritime__desc font-epilogue text-black">Reserva tu espacio en nuestro próximo envío.</p>
+
+        <div class="maritime__dates">
+          {
+            departures.map((d) => (
+              <div class="maritime__date gradient-dark-box">
+                <p class="maritime__day font-sora font-medium text-white">{d.day}</p>
+                <p class="maritime__month font-epilogue font-medium uppercase text-white">{d.month}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="maritime__visual" aria-hidden="true">
+        <div class="maritime__visual-fade maritime__visual-fade--left"></div>
+        <div class="maritime__visual-fade maritime__visual-fade--top"></div>
+        <div class="maritime__visual-fade maritime__visual-fade--bottom"></div>
+        <div class="maritime__visual-fade maritime__visual-fade--diagonal"></div>
+        <ResponsiveImage
+          src="/images/sections/09-maritime/bg-ship.png"
+          alt=""
+          class="maritime__ship"
+          sizes="(max-width: 1023px) 100vw, 55vw"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .maritime {
+    overflow: hidden;
+  }
+
+  .maritime__container {
+    position: relative;
+  }
+
+  .maritime__grid {
+    display: grid;
+    align-items: center;
+    gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 3rem);
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .maritime__grid {
+      grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+      min-height: clamp(18rem, calc(1156 / 3973 * 100vw), 30rem);
+    }
+  }
+
+  .maritime__route {
+    font-size: clamp(0.875rem, calc(50 / 3973 * 100vw), 1.51rem);
+    line-height: 1.2;
+  }
+
+  .maritime__title {
+    margin-top: 0.35rem;
+    font-size: clamp(1.25rem, calc(110 / 3973 * 100vw), 3.3rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 14ch;
+  }
+
+  .maritime__desc {
+    margin-top: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+    font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 1.35;
+    max-width: 22ch;
+  }
+
+  .maritime__dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+    margin-top: clamp(1.25rem, calc(48 / 3973 * 100vw), 2.5rem);
+  }
+
+  .maritime__date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    min-width: clamp(8rem, calc(644 / 3973 * 100vw), 20rem);
+    min-height: clamp(7rem, calc(632 / 3973 * 100vw), 19rem);
+    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    text-align: center;
+  }
+
+  .maritime__day {
+    font-size: clamp(2rem, calc(304 / 3973 * 100vw), 9.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .maritime__month {
+    margin-top: 0.25rem;
+    font-size: clamp(0.875rem, calc(132 / 3973 * 100vw), 4rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .maritime__visual {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: clamp(14rem, calc(1156 / 3973 * 100vw), 28rem);
+  }
+
+  @media (min-width: 1024px) {
+    .maritime__visual {
+      position: absolute;
+      right: calc(-1 * clamp(1.25rem, 7.55vw, 7.5rem));
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(62%, calc(2418 / 3973 * 100vw));
+      border-radius: 20px 0 0 20px;
+    }
+  }
+
+  .maritime__visual-fade {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .maritime__visual-fade--left {
+    inset-block: 0;
+    left: 0;
+    width: 32%;
+    background: linear-gradient(90deg, #f9f9f9 0%, rgba(249, 249, 249, 0) 100%);
+  }
+
+  .maritime__visual-fade--top {
+    inset-inline: 0;
+    top: 0;
+    height: 18%;
+    background: linear-gradient(180deg, #f9f9f9 0%, rgba(249, 249, 249, 0) 100%);
+  }
+
+  .maritime__visual-fade--bottom {
+    inset-inline: 0;
+    bottom: 0;
+    height: 28%;
+    background: linear-gradient(0deg, #f9f9f9 0%, rgba(249, 249, 249, 0) 100%);
+  }
+
+  .maritime__visual-fade--diagonal {
+    inset: 0;
+    background: linear-gradient(
+      118deg,
+      #f9f9f9 0%,
+      rgba(249, 249, 249, 0.85) 18%,
+      rgba(249, 249, 249, 0) 42%
+    );
+  }
+
+  .maritime__ship,
+  .maritime__visual :global(.maritime__ship) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: clamp(14rem, calc(1156 / 3973 * 100vw), 28rem);
+    object-fit: cover;
+    object-position: center right;
+  }
+</style>

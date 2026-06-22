@@ -1,0 +1,309 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { asset } from '../lib/assets';
+
+const stats = [
+  {
+    icon: '/images/sections/02-hero/icon-experiencia.svg',
+    lines: [
+      { text: '+10 años', bold: true },
+      { text: ' de', bold: false },
+      { text: 'experiencia', bold: false },
+      { text: 'previa', bold: false, medium: true },
+    ],
+  },
+  {
+    icon: '/images/sections/02-hero/icon-seguridad.svg',
+    lines: [
+      { text: 'Seguridad en', bold: false },
+      { text: 'todo el proceso', bold: true },
+    ],
+  },
+  {
+    icon: '/images/sections/02-hero/icon-entregas.svg',
+    lines: [
+      { text: 'Entregas', bold: false },
+      { text: ' puntuales', bold: true },
+    ],
+  },
+  {
+    icon: '/images/sections/02-hero/icon-asesoria.svg',
+    lines: [
+      { text: 'Asesoría', bold: false },
+      { text: 'personalizada', bold: true },
+    ],
+  },
+];
+---
+
+<section id="inicio" class="hero">
+  <div class="hero__orange" aria-hidden="true"></div>
+  <ResponsiveImage
+    src="/images/sections/02-hero/bg-fondo-carga.png"
+    alt=""
+    class="hero__fondo-carga"
+    sizes="100vw"
+    aria-hidden="true"
+    loading="eager"
+  />
+
+  <div class="site-container hero__inner">
+    <a href="#inicio" class="hero__logo-wrap" aria-label="ProBusiness — Inicio">
+      <ResponsiveImage
+        src="/images/sections/01-header/logo.png"
+        alt="probusiness"
+        class="hero__logo"
+        width="782"
+        height="460"
+        responsive={false}
+        loading="eager"
+      />
+    </a>
+
+    <div class="hero__grid">
+      <div class="hero__content">
+        <h1 class="hero__title font-sora font-medium text-white">
+          <span class="block">Empieza hoy,</span>
+          <span class="block">importa con nuestra</span>
+          <span class="hero__title-row">
+            <span class="font-semibold text-black">Carga Consolidada</span>
+            <span class="badge-pro-hero">PRO</span>
+          </span>
+        </h1>
+
+        <p class="hero__subtitle font-epilogue font-medium text-white">
+          Productos desde China a Perú al mejor costo.
+        </p>
+
+        <div class="hero__stats">
+          {
+            stats.map((stat) => (
+              <div class="hero__stat">
+                <div class="hero__stat-icon-wrap">
+                  <img src={asset('/images/sections/02-hero/ellipse.svg')} alt="" class="hero__stat-ellipse" aria-hidden="true" />
+                  <img src={asset(stat.icon)} alt="" class="hero__stat-icon" aria-hidden="true" />
+                </div>
+                <p class="hero__stat-text font-epilogue text-white">
+                  {stat.lines.map((line) => (
+                    <span class:list={{ 'font-semibold': line.bold, 'font-medium': line.medium, 'font-normal': !line.bold && !line.medium }}>
+                      {line.text}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+
+        <a href="#contacto" class="btn-dark hero__cta font-epilogue font-bold text-white">Cotizar mi importación</a>
+
+        <p class="hero__secure font-epilogue text-white flex flex-row items-center justify-center gap-2">
+          <img src={asset('/images/sections/02-hero/icon-lock.svg')} alt="" class="hero__lock" aria-hidden="true" />
+          Tú información 100% segura y confidencial
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: clamp(4.5rem, calc(172 / 3973 * 100vw), 6.5rem);
+    padding-bottom: clamp(2rem, calc(120 / 3973 * 100vw), 4rem);
+    min-height: clamp(32rem, calc(2202 / 3973 * 100vw), 52rem);
+  }
+
+  .hero__orange {
+    position: absolute;
+    inset: 0;
+    background: #ff5410;
+    z-index: 0;
+  }
+
+  .hero__fondo-carga,
+  .hero :global(.hero__fondo-carga) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(69%, calc(2737 / 3973 * 100vw));
+    height: 100%;
+    object-fit: cover;
+    object-position: right top;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    padding-top: clamp(3.5rem, calc(120 / 3973 * 100vw), 5rem);
+  }
+
+  .hero__logo-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+  }
+
+  .hero__logo,
+  .hero__logo-wrap :global(.hero__logo) {
+    height: clamp(2.5rem, calc(97 / 3973 * 100vw), 4.5rem);
+    width: auto;
+  }
+
+  .hero__grid {
+    display: grid;
+    align-items: center;
+    gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 3rem);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 48%) minmax(0, 52%);
+    }
+  }
+
+  .hero__title {
+    font-size: clamp(1.35rem, calc(140 / 3973 * 100vw), 4.23rem);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+  }
+
+  .hero__title-row {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    margin-top: 0.15em;
+  }
+
+  .badge-pro-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: clamp(3.5rem, calc(237 / 3973 * 100vw), 9rem);
+    min-height: clamp(1.75rem, calc(128 / 3973 * 100vw), 5rem);
+    border-radius: 20px;
+    background: #000;
+    padding-inline: clamp(0.5rem, calc(20 / 3973 * 100vw), 1.25rem);
+    font-family: var(--font-sora);
+    font-size: clamp(1rem, calc(96 / 3973 * 100vw), 2.9rem);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    color: var(--color-probusiness-naranja);
+  }
+
+  .hero__subtitle {
+    margin-top: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+    font-size: clamp(0.875rem, calc(70 / 3973 * 100vw), 2.11rem);
+    line-height: 1.26;
+    max-width: 28ch;
+  }
+
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, calc(20 / 3973 * 100vw), 1.5rem);
+    margin-top: clamp(1.5rem, calc(80 / 3973 * 100vw), 3.5rem);
+  }
+
+  @media (min-width: 640px) {
+    .hero__stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .hero__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__stat-icon-wrap {
+    position: relative;
+    width: clamp(3.5rem, calc(315 / 3973 * 100vw), 8rem);
+    height: clamp(3.5rem, calc(315 / 3973 * 100vw), 8rem);
+    margin-bottom: clamp(0.35rem, calc(12 / 3973 * 100vw), 0.75rem);
+  }
+
+  .hero__stat-ellipse {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__stat-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42%;
+    height: 42%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+  }
+
+  .hero__stat-text {
+    font-size: clamp(0.55rem, calc(50 / 3973 * 100vw), 1.51rem);
+    line-height: 0.93;
+    text-shadow: 0 4px 38px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero__cta {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: clamp(1.25rem, calc(64 / 3973 * 100vw), 2.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__cta {
+      width: auto;
+      min-width: min(100%, calc(1659 / 3973 * 100vw));
+    }
+  }
+
+  .hero__secure {
+    margin-top: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+    font-size: clamp(0.625rem, calc(48 / 3973 * 100vw), 1.45rem);
+    line-height: 1.26;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__secure {
+      justify-content: center;
+    }
+  }
+
+  .hero__lock {
+    width: clamp(1rem, calc(43 / 3973 * 100vw), 1.75rem);
+    height: clamp(1rem, calc(43 / 3973 * 100vw), 1.75rem);
+    flex-shrink: 0;
+  }
+
+  .hero__mobile-visual {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .hero__visual {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .hero__visual-img {
+    width: min(100%, calc(1782 / 3973 * 100vw));
+    max-height: clamp(16rem, calc(995 / 3973 * 100vw), 36rem);
+    object-fit: contain;
+    object-position: bottom right;
+  }
+
+  .hero__visual-img--blend {
+    mix-blend-mode: screen;
+  }
+</style>

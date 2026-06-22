@@ -1,0 +1,38 @@
+---
+import { asset } from '../lib/assets';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<a
+  href="#contacto"
+  class:list={['quote-cta btn-primary inline-flex items-center justify-center gap-4 font-epilogue font-bold text-white', className]}
+>
+  <img
+    src={asset('/images/sections/shared/icon-quote.svg')}
+    alt=""
+    class="quote-cta__icon hidden shrink-0 lg:block"
+    aria-hidden="true"
+  />
+  Cotizar mi Importación
+</a>
+
+<style>
+  .quote-cta {
+    font-size: clamp(1rem, calc(96 / 3973 * 100vw), 2.9rem);
+    line-height: 1.26;
+    padding-block: clamp(0.85rem, calc(44 / 3973 * 100vw), 1.75rem);
+    padding-inline: clamp(1.5rem, calc(80 / 3973 * 100vw), 4.5rem);
+    max-width: min(100%, calc(1474 / 3973 * 100vw));
+  }
+
+  .quote-cta__icon {
+    width: clamp(2rem, calc(131 / 3973 * 100vw), 4.5rem);
+    height: clamp(2rem, calc(131 / 3973 * 100vw), 4.5rem);
+    object-fit: contain;
+  }
+</style>

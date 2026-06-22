@@ -1,0 +1,131 @@
+---
+const faqs = [
+  { q: '¿Cuánto tiempo demora en llegar mi carga?', a: 'El tiempo de tránsito marítimo desde China a Perú suele ser de 35 a 45 días, más el tiempo de nacionalización y entrega local.' },
+  { q: '¿Me ayudan a buscar productos para importar?', a: 'Sí, nuestro equipo puede orientarte sobre productos viables y proveedores según tu presupuesto y objetivo comercial.' },
+  { q: '¿Me ayudan a conseguir proveedores confiables?', a: 'Te asesoramos en la validación de proveedores y en buenas prácticas para reducir riesgos de estafa o mala calidad.' },
+  { q: '¿Qué tipo de carga puedo importar?', a: 'Puedes importar mercancía general sujeta a regulaciones peruanas. Te indicamos restricciones y requisitos según tu producto.' },
+  { q: '¿Puedo importar pequeñas cantidades?', a: 'Sí, la carga consolidada está pensada para que pagues solo por el espacio que ocupas, ideal para volúmenes pequeños o medianos.' },
+  { q: '¿La cotización tiene algún costo?', a: 'La cotización inicial no tiene costo. Solo pagas cuando confirmas tu participación en el embarque.' },
+  { q: '¿Realizan inspecciones o visitas al proveedor?', a: 'Podemos coordinar verificaciones según el servicio contratado para validar producto y empaque antes del embarque.' },
+  { q: '¿Puedo unir carga de varios proveedores?', a: 'Sí, puedes consolidar mercancía de distintos proveedores en nuestro almacén en China en un solo envío a Perú.' },
+];
+
+const left = faqs.slice(0, 4);
+const right = faqs.slice(4, 8);
+---
+
+<section id="faq" class="section-light-gray site-section--lg">
+  <div class="site-container">
+    <h2 class="faq__title text-center font-epilogue font-semibold text-black">
+      Preguntas <span class="text-probusiness-naranja">frecuentes</span>
+    </h2>
+
+    <div class="faq__grid">
+      <div class="faq__col">
+        {
+          left.map((faq) => (
+            <details class="faq__item radius-faq group">
+              <summary class="faq__question font-epilogue font-medium text-black">
+                {faq.q}
+                <span class="faq__chevron">›</span>
+              </summary>
+              <div class="faq__answer-wrap">
+                <p class="faq__answer font-epilogue text-black/75">{faq.a}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+      <div class="faq__col">
+        {
+          right.map((faq) => (
+            <details class="faq__item radius-faq group">
+              <summary class="faq__question font-epilogue font-medium text-black">
+                {faq.q}
+                <span class="faq__chevron">›</span>
+              </summary>
+              <div class="faq__answer-wrap">
+                <p class="faq__answer font-epilogue text-black/75">{faq.a}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__title {
+    font-size: clamp(1.5rem, calc(160 / 3973 * 100vw), 4.83rem);
+    line-height: 1.03;
+    letter-spacing: -0.06em;
+    margin-bottom: clamp(1.5rem, calc(64 / 3973 * 100vw), 3.5rem);
+  }
+
+  .faq__grid {
+    display: grid;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.25rem);
+  }
+
+  @media (min-width: 1024px) {
+    .faq__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+    }
+  }
+
+  .faq__col {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.25rem);
+  }
+
+  .faq__item {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .faq__item[open] {
+    border-color: rgba(255, 106, 41, 0.35);
+  }
+
+  .faq__question {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(0.875rem, calc(28 / 3973 * 100vw), 1.75rem) clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    font-size: clamp(0.8rem, calc(48 / 3973 * 100vw), 1.45rem);
+    line-height: 1.25;
+    list-style: none;
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__chevron {
+    flex-shrink: 0;
+    font-size: 1.5em;
+    color: var(--color-probusiness-naranja);
+    transition: transform 0.2s ease;
+  }
+
+  .faq__item[open] .faq__chevron {
+    transform: rotate(90deg);
+  }
+
+  .faq__answer-wrap {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: clamp(0.75rem, calc(20 / 3973 * 100vw), 1.25rem) clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+  }
+
+  .faq__answer {
+    font-size: clamp(0.75rem, calc(32 / 3973 * 100vw), 1.1rem);
+    line-height: 1.45;
+    margin: 0;
+  }
+</style>

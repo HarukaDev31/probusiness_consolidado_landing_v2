@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@import "./figma-scale.css";
+@import "./mobile.css";
+
+@theme {
+  --color-probusiness-naranja: #ff6a29;
+  --color-probusiness-naranja-dark: #ff5410;
+  --color-probusiness-naranja-light: #ff733b;
+  --color-probusiness-orange-header: #ee4815;
+  --color-probusiness-badge-border: #da4307;
+  --font-sora: "Sora", sans-serif;
+  --font-epilogue: "Epilogue", sans-serif;
+  --site-max: 1920px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-epilogue);
+  background-color: #000;
+  color: #fff;
+}
+
+.font-sora {
+  font-family: var(--font-sora);
+}
+
+.font-epilogue {
+  font-family: var(--font-epilogue);
+}
+
+.site-container {
+  width: 100%;
+  max-width: var(--site-max);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 7.55vw, 7.5rem);
+}
+
+@media (max-width: 480px) {
+  .site-container {
+    padding-inline: clamp(1rem, 5vw, 5rem);
+  }
+}
+
+.site-section {
+  padding-block: clamp(2.5rem, calc(160 / 3973 * 100vw), 6rem);
+}
+
+.btn-primary {
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ff5410 0%, #ff733b 75.48%);
+  box-shadow: 0 4px 70px 22px rgba(255, 84, 16, 0.78);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 80px 28px rgba(255, 84, 16, 0.85);
+}
+
+.btn-dark {
+  border-radius: 20px;
+  background: linear-gradient(180deg, #212121 0%, #3d3d3d 100%);
+  box-shadow: 0 4px 70px 22px rgba(0, 0, 0, 0.29);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-dark:hover {
+  transform: translateY(-2px);
+}
+
+.text-gradient-pro {
+  background: linear-gradient(90deg, #ff5410 0%, #ff733b 75.48%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.section-white {
+  background-color: #fff;
+  color: #000;
+}
+
+.section-gray {
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+.section-light-gray {
+  background-color: #e4e4e4;
+  color: #000;
+}
+
+.badge-pro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: #000;
+  padding: 0.35rem 1rem;
+  font-family: var(--font-sora);
+  font-weight: 600;
+  color: var(--color-probusiness-naranja);
+}
+
+.badge-pro--filled {
+  background: linear-gradient(180deg, #ff540a 0%, #ff6a29 100%);
+  border: 1px solid #da4307;
+  color: #fff;
+}
+
+.radius-figma {
+  border-radius: 20px;
+}
+
+.radius-faq {
+  border-radius: 36px;
+}
+
+.gradient-pro-h {
+  background: linear-gradient(90deg, #ff5410 0%, #ff733b 75.48%);
+}
+
+.gradient-pro-v {
+  background: linear-gradient(0deg, #ff5410 0%, #ff733b 75.48%);
+}
+
+.gradient-dark-box {
+  background: linear-gradient(180deg, #171717 0%, rgba(16, 17, 21, 0.81) 100%);
+  border: 1px solid #fff;
+  box-shadow: 0 4px 65px 5px rgba(255, 255, 255, 0.03);
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(2.75rem, calc(120 / 3973 * 100vw), 4.5rem);
+  min-height: clamp(2.75rem, calc(118 / 3973 * 100vw), 4.5rem);
+  border-radius: 14px;
+  border: 0.5px solid var(--color-probusiness-naranja);
+  background: linear-gradient(90deg, #ff5410 0%, #ff733b 46.49%, #ff5410 100%);
+  box-shadow: 0 1px 18.4px 12px rgba(255, 106, 41, 0.18);
+  font-family: var(--font-sora);
+  font-size: clamp(1.5rem, calc(92 / 3973 * 100vw), 3.5rem);
+  font-weight: 400;
+  color: #fff;
+  text-shadow: 0 0 24.8px rgba(255, 255, 255, 0.97);
+}
+
+.card-surface {
+  border-radius: 20px;
+  border: 1px solid #aaa;
+  background: #fff;
+}
+
+.card-surface--gray {
+  border: none;
+  background: #eceff4;
+}
+
+.btn-dark {
+  font-size: clamp(1rem, calc(96 / 3973 * 100vw), 2.9rem);
+  padding-block: clamp(0.5rem, calc(20 / 3973 * 100vw), 1.1rem);
+  padding-inline: clamp(1rem, calc(48 / 3973 * 100vw), 2.5rem);
+  max-width: min(100%, calc(1659 / 3973 * 100vw));
+}
+
+.btn-primary-lg {
+  font-size: clamp(1rem, calc(96 / 3973 * 100vw), 2.9rem);
+  padding-block: clamp(0.85rem, calc(40 / 3973 * 100vw), 1.75rem);
+  padding-inline: clamp(1.5rem, calc(80 / 3973 * 100vw), 4rem);
+}
+
+.section-heading-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .section-heading-row {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .section-heading-row--center {
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+  }
+}

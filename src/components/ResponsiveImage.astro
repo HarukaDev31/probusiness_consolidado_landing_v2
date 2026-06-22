@@ -1,0 +1,85 @@
+---
+import { asset, responsiveImage, optimizedImage } from '../lib/assets';
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'auto' | 'sync';
+  width?: number | string;
+  height?: number | string;
+  sizes?: string;
+  widths?: number[];
+  responsive?: boolean;
+  style?: string;
+  'aria-hidden'?: boolean | 'true' | 'false';
+}
+
+const {
+  src,
+  alt = '',
+  class: className,
+  loading = 'lazy',
+  fetchpriority,
+  decoding = 'async',
+  width,
+  height,
+  sizes,
+  widths,
+  responsive,
+  style,
+  'aria-hidden': ariaHidden,
+} = Astro.props;
+
+const isRaster = /\.(png|jpe?g)$/i.test(src);
+const isSvg = /\.svg$/i.test(src);
+const useResponsive = responsive ?? isRaster;
+
+const image = useResponsive
+  ? responsiveImage(src, { sizes, widths })
+  : {
+      fallback: isSvg ? asset(src) : optimizedImage(src),
+      webpSrcset: '',
+      avifSrcset: '',
+      sizes: sizes ?? '100vw',
+      usePicture: false,
+    };
+---
+
+{
+  image.usePicture ? (
+    <picture>
+      {image.avifSrcset ? (
+        <source type="image/avif" srcset={image.avifSrcset} sizes={image.sizes} />
+      ) : null}
+      <source type="image/webp" srcset={image.webpSrcset} sizes={image.sizes} />
+      <img
+        src={image.fallback}
+        alt={alt}
+        class={className}
+        loading={loading}
+        fetchpriority={fetchpriority}
+        decoding={decoding}
+        width={width}
+        height={height}
+        style={style}
+        aria-hidden={ariaHidden}
+      />
+    </picture>
+  ) : (
+    <img
+      src={image.fallback}
+      alt={alt}
+      class={className}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      decoding={decoding}
+      width={width}
+      height={height}
+      style={style}
+      aria-hidden={ariaHidden}
+    />
+  )
+}

@@ -1,0 +1,141 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import QuoteCta from './QuoteCta.astro';
+import { asset } from '../lib/assets';
+
+const cards = [
+  { image: '/images/sections/07-why-choose/card-top-1.png', title: 'Costos competitivos y transparentes', gradient: false },
+  { image: '/images/sections/07-why-choose/card-top-2.png', title: 'Entregas rápidas y eficientes', gradient: false },
+  { image: '/images/sections/07-why-choose/card-top-3.png', title: 'Soporte durante todo el proceso', gradient: false },
+  { image: '/images/sections/07-why-choose/card-bottom-1.png', title: 'Agentes operativos en Perú y China', gradient: true },
+  { image: '/images/sections/07-why-choose/card-bottom-2.png', title: 'Almacenes propios en China y Perú', gradient: true },
+  { image: '/images/sections/07-why-choose/card-bottom-3.png', title: '+10 años de experiencia importando', gradient: true },
+];
+---
+
+<section class="why section-gray site-section--lg">
+  <div class="site-container">
+    <div class="why__heading">
+      <img src={asset('/images/sections/03-what-is/icon-box.svg')} alt="" class="why__icon" aria-hidden="true" />
+      <h2 class="why__title font-epilogue font-medium text-black">
+        ¿Por qué <span class="font-semibold text-probusiness-naranja">elegirnos?</span>
+      </h2>
+    </div>
+
+    <div class="why__grid">
+      {
+        cards.map((card) => (
+          <article class:list={['why__card', card.gradient ? 'why__card--gradient' : 'why__card--white']}>
+            <div class="why__card-media">
+              <ResponsiveImage src={card.image} alt="" class="why__card-img" sizes="(max-width: 640px) 100vw, 33vw" />
+            </div>
+            <p class:list={['why__card-title font-epilogue font-medium', card.gradient ? 'text-white' : 'text-black']}>
+              {card.title}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="why__cta">
+      <p class="why__cta-text font-epilogue text-black">Asesoría rápida, clara y sin compromiso</p>
+      <QuoteCta />
+    </div>
+  </div>
+</section>
+
+<style>
+  .why__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: clamp(2rem, calc(64 / 3973 * 100vw), 3.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    .why__heading {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .why__icon {
+    width: clamp(3rem, calc(271 / 3973 * 100vw), 10.5rem);
+    height: auto;
+  }
+
+  .why__title {
+    font-size: clamp(1.35rem, calc(140 / 3973 * 100vw), 4.23rem);
+    line-height: 1.03;
+    letter-spacing: -0.06em;
+  }
+
+  .why__grid {
+    display: grid;
+    gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .why__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .why__card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid #aaa;
+    overflow: hidden;
+    min-height: clamp(14rem, calc(847 / 3973 * 100vw), 26rem);
+  }
+
+  .why__card--white {
+    background: #fff;
+  }
+
+  .why__card--gradient {
+    background: linear-gradient(0deg, #ff5410 0%, #ff733b 75.48%);
+  }
+
+  .why__card-media {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .why__card--gradient .why__card-media {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .why__card-img,
+  .why__card :global(.why__card-img) {
+    display: block;
+    width: 100%;
+    height: clamp(9rem, calc(579 / 3973 * 100vw), 18rem);
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .why__card-title {
+    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    font-size: clamp(0.75rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .why__cta {
+    margin-top: clamp(2rem, calc(64 / 3973 * 100vw), 4rem);
+    text-align: center;
+  }
+
+  .why__cta-text {
+    font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 1.26;
+    margin-bottom: 1.5rem;
+  }
+</style>

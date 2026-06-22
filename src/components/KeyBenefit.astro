@@ -1,0 +1,85 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+---
+
+<section id="beneficios" class="section-white site-section">
+  <div class="site-container">
+    <div class="key-benefit card-surface--gray grid items-stretch overflow-hidden border border-[#9c9c9c]">
+      <div class="key-benefit__copy">
+        <h2 class="key-benefit__title font-epilogue font-semibold text-black">Beneficio Clave</h2>
+        <p class="key-benefit__body font-epilogue text-black">
+          <span class="font-semibold text-probusiness-naranja">Pagas solo por el espacio que usa tu carga.</span>
+          {' '}Mas ahorro para ti, más oportunidades para tu negocio
+        </p>
+      </div>
+
+      <div class="key-benefit__visual">
+        <ResponsiveImage
+          src="/images/sections/04-key-benefit/container.png"
+          alt="Contenedor de carga consolidada con mercadería"
+          class="key-benefit__img"
+          sizes="(max-width: 1023px) 95vw, 58vw"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .key-benefit {
+    grid-template-columns: 1fr;
+    gap: 0;
+    min-height: clamp(16rem, calc(781 / 3973 * 100vw), 32rem);
+    border-radius: 20px;
+    padding:4em 3em 0 3em;
+  }
+
+  @media (min-width: 1024px) {
+    .key-benefit {
+      grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+    }
+  }
+
+  .key-benefit__copy {
+    padding-inline: clamp(0.5rem, calc(16 / 3973 * 100vw), 1.25rem);
+    padding-block: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 1em;
+    padding:0 4em 0 2em;
+
+  }
+
+  .key-benefit__title {
+    font-size: clamp(1.25rem, calc(90 / 3973 * 100vw), 2.72rem);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+  }
+
+  .key-benefit__body {
+    margin-top: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+    font-size: clamp(1.125rem, calc(125 / 3973 * 100vw), 2.06rem);
+    line-height: 1.16;
+    max-width: 32ch;
+  }
+
+  .key-benefit__visual {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: clamp(10rem, calc(419 / 3973 * 100vw), 18rem);
+    padding-inline: clamp(0.5rem, calc(16 / 3973 * 100vw), 1.25rem);
+    padding-block: 0;
+    overflow: hidden;
+  }
+
+  .key-benefit__img,
+  .key-benefit__visual :global(.key-benefit__img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+</style>

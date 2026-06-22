@@ -1,0 +1,318 @@
+---
+import ResponsiveImage from "./ResponsiveImage.astro";
+import { asset } from "../lib/assets";
+
+const steps = [
+  {
+    num: 1,
+    row: 1,
+    col: 1,
+    title: "Tú encuentras el producto que deseas",
+    body: "Usa las plataformas como Alibaba, YiwuGo, Made-in-China, 1688 y otras páginas especializadas.",
+    image: "/images/sections/05-how-it-works/step-01.png",
+  },
+  {
+    num: 2,
+    row: 1,
+    col: 2,
+    title: "Solicita el Invoice o cotización",
+    body: "Tu proveedor te enviará la cotización para conocer el valor de la mercancía, luego compártenos el documento.",
+    image: "/images/sections/05-how-it-works/step-02.png",
+  },
+  {
+    num: 3,
+    row: 1,
+    col: 3,
+    title: "Te realizamos una cotización inicial",
+    body: "Con los costos estimados de importación para que evalúes tu inversión.",
+    image: "/images/sections/05-how-it-works/step-03.png",
+  },
+  {
+    num: 4,
+    row: 1,
+    col: 4,
+    title: "Confirma tu participación",
+    body: "En nuestra carga consolidada y asegura tu espacio en el próximo embarque.",
+    image: "/images/sections/05-how-it-works/step-04.png",
+  },
+  {
+    num: 5,
+    row: 2,
+    col: 4,
+    title: "Confirma con tu proveedor la entrega",
+    body: "Cuando tu mercadería llega a nuestro almacén podremos verificarlo.",
+    image: "/images/sections/05-how-it-works/step-05.png",
+  },
+  {
+    num: 6,
+    row: 2,
+    col: 3,
+    title: "Recibimos tu mercancía",
+    body: "En nuestro almacén en China y validamos que llegue correctamente antes de su envío.",
+    image: "/images/sections/05-how-it-works/step-06.png",
+  },
+  {
+    num: 7,
+    row: 2,
+    col: 2,
+    title: "Consolidamos tu carga",
+    body: "Junto con otras mercancías para optimizar costos y aprovechar mejor el espacio.",
+    image: "/images/sections/05-how-it-works/step-07.png",
+  },
+  {
+    num: 8,
+    row: 2,
+    col: 1,
+    title: "Realizamos el embarque de tu carga",
+    body: "Y monitoreamos el tránsito hasta su llegada al puerto de destino.",
+    image: "/images/sections/05-how-it-works/step-08.png",
+  },
+  {
+    num: 9,
+    row: 3,
+    col: 1,
+    title: "Gestionamos los trámites aduaneros",
+    body: "Incluyendo el aforo y el proceso de nacionalización de tu mercancía.",
+    image: "/images/sections/05-how-it-works/step-09.png",
+  },
+  {
+    num: 10,
+    row: 3,
+    col: 2,
+    title: "Descargamos tu mercancía en Perú",
+    body: "Verificamos que llegue en óptimas condiciones a nuestros almacenes.",
+    image: "/images/sections/05-how-it-works/step-10.png",
+  },
+  {
+    num: 11,
+    row: 3,
+    col: 3,
+    title: "Coordinamos la entrega de tus productos",
+    body: "Mediante recojo o envío hasta el destino que nos indiques.",
+    image: "/images/sections/05-how-it-works/step-11.png",
+  },
+  {
+    num: 12,
+    row: 3,
+    col: 4,
+    title: "¡Listo! Tu importación fue todo un éxito.",
+    body: "",
+    image: "/images/sections/05-how-it-works/step-12.png",
+  },
+];
+---
+
+<section class="how section-white site-section--lg overflow-hidden">
+  <div class="site-container">
+    <div class="how__heading">
+      <img
+        src={asset("/images/sections/03-what-is/icon-box.svg")}
+        alt=""
+        class="how__icon"
+        aria-hidden="true"
+      />
+      <h2 class="how__title font-epilogue font-medium text-black">
+        Así funciona nuestro
+        <span class="how__title-accent font-semibold text-probusiness-naranja">
+          <span>servicio de importación</span>
+          <span class="badge-pro--filled how__pro font-sora font-semibold">PRO</span>
+        </span>
+      </h2>
+    </div>
+
+    <div class="how-it-works">
+      <img
+        src={asset("/images/sections/05-how-it-works/path.svg")}
+        alt=""
+        class="how-it-works__path"
+        aria-hidden="true"
+      />
+
+      <ol class="how-it-works__list">
+        {
+          steps.map((step) => (
+            <li
+              class="how-it-works__step"
+              style={`--step-row: ${step.row}; --step-col: ${step.col};`}
+              data-step={step.num}
+            >
+              <span class="step-badge">{step.num}</span>
+              <ResponsiveImage
+                src={step.image}
+                alt=""
+                class="how-it-works__thumb"
+                sizes="(max-width: 1023px) 40vw, 11rem"
+              />
+              <div class="how-it-works__text">
+                <h3 class="how-it-works__step-title font-epilogue font-semibold text-black">
+                  {step.title}
+                </h3>
+                {step.body ? (
+                  <p class="how-it-works__step-body font-epilogue font-normal text-black/80">
+                    {step.body}
+                  </p>
+                ) : null}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <p class="how__coverage font-epilogue font-medium text-black">
+      <span class="how__coverage-label">Cobertura en:</span>
+      <span class="how__coverage-value">todo el Perú</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .how__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: clamp(2rem, calc(64 / 3973 * 100vw), 4rem);
+  }
+
+  @media (min-width: 1024px) {
+    .how__heading {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .how__icon {
+    width: clamp(3rem, calc(271 / 3973 * 100vw), 10.5rem);
+    height: auto;
+    aspect-ratio: 270.775 / 287.874;
+    flex-shrink: 0;
+  }
+
+  .how__title {
+    font-size: clamp(1rem, calc(140 / 3973 * 100vw), 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.06em;
+    max-width: 28ch;
+    text-align: center;
+  }
+
+  .how__title-accent {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+  }
+
+  .how__pro {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
+    padding: 0.1em 0.45em;
+    border-radius: 20px;
+    color: #fff;
+  }
+
+  .how__coverage {
+    margin-top: clamp(2rem, calc(80 / 3973 * 100vw), 4rem);
+    text-align: center;
+    font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 1.2;
+  }
+
+  .how__coverage-label {
+    font-weight: 500;
+  }
+
+  .how__coverage-value {
+    font-weight: 600;
+  }
+
+  .how-it-works {
+    position: relative;
+  }
+
+  .how-it-works__path {
+    display: none;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 92%;
+    height: auto;
+    aspect-ratio: 3500.5 / 3452;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  .how-it-works__list {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 2.5rem);
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .how-it-works__path {
+      display: block;
+    }
+
+    .how-it-works {
+      min-height: clamp(32rem, calc(3370 / 3973 * 100vw), 56rem);
+      padding-inline: clamp(0.25rem, calc(16 / 3973 * 100vw), 1.5rem);
+    }
+
+    .how-it-works__list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(3, auto);
+      gap: clamp(1rem, calc(32 / 3973 * 100vw), 2rem)
+        clamp(0.5rem, calc(16 / 3973 * 100vw), 1.25rem);
+      align-items: start;
+    }
+
+    .how-it-works__step {
+      grid-row: var(--step-row);
+      grid-column: var(--step-col);
+    }
+  }
+
+  .how-it-works__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: clamp(0.5rem, calc(12 / 3973 * 100vw), 1rem);
+  }
+
+  .how-it-works__thumb,
+  .how-it-works__step :global(.how-it-works__thumb) {
+    width: clamp(5rem, calc(444 / 3973 * 100vw), 11rem);
+    height: clamp(5rem, calc(444 / 3973 * 100vw), 11rem);
+    object-fit: contain;
+    margin: clamp(0.5rem, calc(16 / 3973 * 100vw), 1rem) 0;
+  }
+
+  .how-it-works__text {
+    max-width: 22ch;
+  }
+
+  .how-it-works__step-title {
+    font-size: clamp(0.7rem, calc(36 / 3973 * 100vw), 1.09rem);
+    line-height: 1.2;
+  }
+
+  .how-it-works__step-body {
+    margin-top: 0.35rem;
+    font-size: clamp(0.65rem, calc(28 / 3973 * 100vw), 0.95rem);
+    line-height: 1.35;
+  }
+</style>

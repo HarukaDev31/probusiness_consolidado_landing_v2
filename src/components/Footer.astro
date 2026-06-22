@@ -1,0 +1,159 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { asset } from '../lib/assets';
+
+const footerStats = [
+  { type: 'ccl', label: 'Respaldado por la CCL' },
+  { type: 'china', label: 'Sede propia en China' },
+  { value: '+5000', label: 'Clientes satisfechos' },
+  { value: '+10', label: 'Años de experiencia' },
+];
+---
+
+<footer class="footer bg-probusiness-naranja-dark">
+  <div class="site-container footer__inner">
+    <a href="#inicio" class="footer-brand" aria-label="ProBusiness — Inicio">
+      <ResponsiveImage
+        src="/images/sections/12-footer/logo-large.png"
+        alt="probusiness"
+        class="footer-brand__logo"
+        loading="lazy"
+        responsive={false}
+      />
+    </a>
+
+    <div class="footer-stats">
+      {
+        footerStats.map((stat) => (
+          <div class="footer-stat">
+            {stat.type === 'ccl' ? (
+              <ResponsiveImage
+                src="/images/sections/12-footer/logo-ccl.png"
+                alt="CCL"
+                class="footer-stat__logo footer-stat__logo--ccl"
+                loading="lazy"
+                responsive={false}
+              />
+            ) : stat.type === 'china' ? (
+              <img
+                src={asset('/images/sections/12-footer/icon-china.svg')}
+                alt=""
+                class="footer-stat__logo footer-stat__logo--china"
+                aria-hidden="true"
+                loading="lazy"
+              />
+            ) : (
+              <p class="footer-stat__value font-sora">{stat.value}</p>
+            )}
+            <p class="footer-stat__label font-epilogue">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="footer-copy font-epilogue">2026, probusiness. Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<style>
+  .footer__inner {
+    display: grid;
+    gap: clamp(1.75rem, calc(48 / 3973 * 100vw), 3rem);
+    padding-block: clamp(2.5rem, calc(80 / 3973 * 100vw), 5rem) clamp(1.5rem, calc(40 / 3973 * 100vw), 2.5rem);
+  }
+
+  .footer-brand__logo,
+  .footer-brand :global(.footer-brand__logo) {
+    display: block;
+    height: clamp(3.5rem, calc(460 / 3973 * 100vw), 11rem);
+    width: auto;
+    max-width: min(100%, calc(782 / 3973 * 100vw));
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .footer-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, calc(40 / 3973 * 100vw), 2.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    .footer__inner {
+      grid-template-columns: minmax(0, 28%) 1fr;
+      grid-template-areas:
+        'brand stats'
+        'copy copy';
+      align-items: center;
+    }
+
+    .footer-brand {
+      grid-area: brand;
+    }
+
+    .footer-stats {
+      grid-area: stats;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 3.5rem);
+    }
+
+    .footer-copy {
+      grid-area: copy;
+    }
+  }
+
+  .footer-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(0.35rem, calc(12 / 3973 * 100vw), 0.75rem);
+  }
+
+  .footer-stat__logo--ccl,
+  .footer-stat :global(.footer-stat__logo--ccl) {
+    height: clamp(2rem, calc(153 / 3973 * 100vw), 4.5rem);
+    width: auto;
+    filter: none;
+  }
+
+  .footer-stat__logo--china {
+    height: clamp(2rem, calc(207 / 3973 * 100vw), 5.5rem);
+    width: clamp(2rem, calc(207 / 3973 * 100vw), 5.5rem);
+    filter: brightness(0) invert(1);
+  }
+
+  .footer-stat__value {
+    margin: 0;
+    font-size: clamp(1.75rem, calc(128 / 3973 * 100vw), 3.86rem);
+    font-weight: 500;
+    line-height: 0.97;
+    letter-spacing: -0.06em;
+    color: #fff;
+    min-height: clamp(2rem, calc(166 / 3973 * 100vw), 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-stat__label {
+    margin: 0;
+    font-size: clamp(0.65rem, calc(70 / 3973 * 100vw), 2.11rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 12ch;
+  }
+
+  .footer-copy {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(0.625rem, calc(40 / 3973 * 100vw), 1.21rem);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.8);
+  }
+</style>

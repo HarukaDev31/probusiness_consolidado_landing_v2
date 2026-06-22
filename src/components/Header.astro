@@ -1,0 +1,149 @@
+---
+const navLinks = [
+  { label: 'Inicio', href: '#inicio', id: 'inicio' },
+  { label: 'Servicio', href: '#servicio', id: 'servicio' },
+  { label: 'Beneficios', href: '#beneficios', id: 'beneficios' },
+  { label: 'Testimonios', href: '#testimonios', id: 'testimonios' },
+  { label: 'Preguntas Frecuentes', href: '#faq', id: 'faq' },
+];
+---
+
+<header class="header" data-scrolled="false">
+  <div class="site-container header__bar">
+    <nav class="header__nav hidden items-center justify-end gap-5 lg:flex xl:gap-8" aria-label="Navegación principal">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-nav={link.id}
+            class="nav-link header__nav-link font-epilogue font-medium text-white transition-colors duration-200 hover:text-probusiness-naranja"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button
+      id="mobile-menu-btn"
+      type="button"
+      class="header__menu-btn flex h-10 w-10 items-center justify-center rounded-lg border border-white/25 text-white lg:hidden"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="header__mobile-menu site-container hidden lg:hidden" aria-label="Navegación móvil">
+    {
+      navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-nav={link.id}
+          class="nav-link block py-3 font-epilogue text-base font-medium text-white transition-colors hover:text-probusiness-naranja"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector('.header');
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  const updateHeader = () => {
+    if (!header) return;
+    const pastHero = window.scrollY > window.innerHeight * 0.55;
+    header.setAttribute('data-scrolled', String(pastHero));
+  };
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const sections = ['inicio', 'servicio', 'beneficios', 'testimonios', 'faq', 'contacto'];
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav]');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navLinks.forEach((link) => {
+          const active = link.dataset.nav === id;
+          link.classList.toggle('text-probusiness-naranja', active);
+          link.classList.toggle('text-white', !active);
+        });
+      });
+    },
+    { rootMargin: '-40% 0px -50% 0px', threshold: 0 },
+  );
+
+  sections.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: transparent;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .header[data-scrolled='true'] {
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: clamp(3.5rem, calc(97 / 3973 * 100vw), 5rem);
+  }
+
+  .header__nav-link {
+    font-size: clamp(0.8rem, calc(32 / 3973 * 100vw), 1.25rem);
+    line-height: 1;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .header[data-scrolled='true'] .header__nav-link {
+    text-shadow: none;
+  }
+
+  .header__mobile-menu {
+    padding-bottom: 0.75rem;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .header[data-scrolled='true'] .header__mobile-menu {
+    background: transparent;
+  }
+</style>

@@ -1,0 +1,243 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { asset } from '../lib/assets';
+
+const steps = [
+  {
+    num: 1,
+    image: '/images/sections/03-what-is/step-01.png',
+    textHtml: '<span class="font-normal">Varios importadores </span><span class="font-medium">compran y envían su carga a nuestro almacén en China.</span>',
+  },
+  {
+    num: 2,
+    image: '/images/sections/03-what-is/step-02.png',
+    textHtml: '<span class="font-medium">Recibimos y organizamos toda la mercadería</span><span class="font-normal"> para iniciar la consolidación.</span>',
+  },
+  {
+    num: 3,
+    image: '/images/sections/03-what-is/step-03.png',
+    textHtml: '<span class="font-medium">Unificamos las cargas en contenedores</span><span class="font-normal"> y enviamos vía marítima a Perú.</span>',
+  },
+  {
+    num: 4,
+    image: '/images/sections/03-what-is/step-04.png',
+    textHtml: '<span class="font-medium">Recibe tu mercadería lista </span><span class="font-normal">para vender o impulsar tu negocio.</span>',
+  },
+];
+---
+
+<section id="servicio" class="what-is section-white">
+  <div class="what-is__wave" aria-hidden="true">
+    <ResponsiveImage
+      src="/images/sections/03-what-is/bg-wave.png"
+      alt=""
+      class="what-is__wave-img"
+      sizes="100vw"
+      loading="eager"
+      aria-hidden="true"
+    />
+  </div>
+
+  <div class="site-container what-is__body">
+    <header class="what-is__header">
+      <div class="what-is__heading-row">
+        <img src={asset('/images/sections/03-what-is/icon-box.svg')} alt="" class="what-is__icon" aria-hidden="true" />
+        <span class="what-is__title font-epilogue font-medium text-black">
+          ¿Qué es <span class="font-semibold text-probusiness-naranja">Carga Consolidada?</span>
+        </span>
+      </div>
+      <p class="what-is__intro font-epilogue text-black mt-[60px]">
+        Es un forma inteligente y económica de importar, con la garantía de
+        <span class="badge-pro--filled what-is__pro-badge font-sora font-semibold">PRO</span>
+        <span class="font-semibold text-probusiness-naranja"> Business:</span>
+      </p>
+    </header>
+
+    <div class="what-is__grid">
+      {
+        steps.map((step) => (
+          <article class="what-is__card-wrap">
+            <div class="what-is__card">
+              <span class="what-is__badge font-sora">{step.num}</span>
+              <div class="what-is__illus">
+                <ResponsiveImage
+                  src={step.image}
+                  alt=""
+                  class="what-is__step-img"
+                  sizes="(max-width: 1023px) 48vw, 16.8rem"
+                  aria-hidden="true"
+                />
+              </div>
+              <p class="what-is__card-text font-epilogue text-black" set:html={step.textHtml} />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .what-is {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: clamp(2.5rem, calc(160 / 3973 * 100vw), 6rem);
+  }
+
+  .what-is__wave {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .what-is__wave-img,
+  .what-is :global(.what-is__wave-img) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .what-is__body {
+    position: relative;
+    z-index: 1;
+    padding-top: clamp(10rem, calc(100vw * 1024 / 1536 * 0.6), calc(1920px * 1024 / 1536 * 0.6));
+  }
+
+  .what-is__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+  }
+
+  .what-is__heading-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.125rem, calc(4 / 3973 * 100vw), 0.25rem);
+  }
+
+  .what-is__icon {
+    width: clamp(3rem, calc(271 / 3973 * 100vw), 10.5rem);
+    height: auto;
+    flex-shrink: 0;
+    margin-right: clamp(-1.25rem, calc(-48 / 3973 * 100vw), -2.75rem);
+  }
+
+  .what-is__title {
+    font-size: clamp(1.4rem, calc(150 / 3973 * 100vw), 4.52rem);
+    line-height: 1.01;
+    letter-spacing: -0.06em;
+    max-width: 18ch;
+    text-align: center;
+  }
+
+  .what-is__intro {
+    font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
+    line-height: 1.26;
+    max-width: 52rem;
+  }
+
+  .what-is__pro-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 8px;
+    font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
+    padding: 0 0.1em;
+    vertical-align: middle;
+    margin-inline: 0.15em;
+  }
+
+  .what-is__grid {
+    display: grid;
+    gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+    margin-top: clamp(2rem, calc(80 / 3973 * 100vw), 4.5rem);
+    padding-top: clamp(1.125rem, calc(40 / 3973 * 100vw), 1.625rem);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .what-is__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .what-is__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .what-is__card-wrap {
+    position: relative;
+    padding-left: clamp(1.125rem, calc(40 / 3973 * 100vw), 1.625rem);
+  }
+
+  .what-is__badge {
+    position: absolute;
+    top: clamp(70px, calc(30 / 3973 * 100vw), 70px);
+    left: 0;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(2.25rem, calc(80 / 3973 * 100vw), 3.25rem);
+    height: clamp(2.25rem, calc(80 / 3973 * 100vw), 3.25rem);
+    border-radius: clamp(10px, calc(14 / 3973 * 100vw), 14px);
+    background: linear-gradient(180deg, #ff540a 0%, #ff6a29 100%);
+    border: 0.5px solid #da4307;
+    box-shadow: 0 2px 18px rgba(255, 84, 16, 0.55);
+    font-size: clamp(1.125rem, calc(56 / 3973 * 100vw), 2rem);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  .what-is__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background: #eceff4;
+    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    padding-top: clamp(1.5rem, calc(48 / 3973 * 100vw), 2.75rem);
+    min-height: clamp(16rem, calc(1235 / 3973 * 100vw), 38rem);
+  }
+
+  .what-is__illus {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+    background: #eceff4;
+  }
+
+  .what-is__step-img,
+  .what-is :global(.what-is__step-img) {
+    width: clamp(8.4rem, calc(467 / 3973 * 100vw), 16.8rem);
+    height: clamp(8.4rem, calc(467 / 3973 * 100vw), 16.8rem);
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .what-is__card-text {
+    width: 100%;
+    font-size: clamp(0.75rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 0.94;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  .what-is__card-text :global(span) {
+    display: inline;
+  }
+</style>

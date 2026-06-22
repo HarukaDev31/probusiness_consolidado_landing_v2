@@ -1,0 +1,41 @@
+@media (max-width: 1023px) {
+  .site-container {
+    padding-inline: clamp(1rem, 4.5vw, 1.5rem);
+  }
+
+  .hero__stats {
+    gap: 0.5rem;
+  }
+
+  .hero__stat-text {
+    font-size: clamp(0.5rem, 2.8vw, 0.7rem);
+  }
+
+  .what-is__card {
+    min-height: auto;
+  }
+
+  .why__card-img {
+    height: clamp(8rem, 38vw, 11rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .maritime__dates {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .maritime__date {
+    min-width: 0;
+    min-height: clamp(6rem, 28vw, 9rem);
+  }
+
+  .maritime__day {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+
+  .maritime__month {
+    font-size: clamp(0.875rem, 5vw, 1.25rem);
+  }
+}

@@ -1,0 +1,139 @@
+/**
+ * Escala tipográfica y espaciado desde artboard Figma 3973px.
+ * Fórmula: clamp(min, px/3973*100vw, px*1920/3973/16 rem)
+ */
+:root {
+  --figma-artboard: 3973;
+  --figma-cap: 1920px;
+}
+
+.text-f-160 {
+  font-size: clamp(1.5rem, calc(160 / 3973 * 100vw), 4.83rem);
+  line-height: 1.03;
+  letter-spacing: -0.06em;
+}
+
+.text-f-150 {
+  font-size: clamp(1.4rem, calc(150 / 3973 * 100vw), 4.52rem);
+  line-height: 1.01;
+  letter-spacing: -0.06em;
+}
+
+.text-f-140 {
+  font-size: clamp(1.35rem, calc(140 / 3973 * 100vw), 4.23rem);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+}
+
+.text-f-128 {
+  font-size: clamp(1.25rem, calc(128 / 3973 * 100vw), 3.86rem);
+  line-height: 0.97;
+  letter-spacing: -0.06em;
+}
+
+.text-f-96 {
+  font-size: clamp(1rem, calc(96 / 3973 * 100vw), 2.9rem);
+  line-height: 1.03;
+  letter-spacing: -0.06em;
+}
+
+.text-f-90 {
+  font-size: clamp(0.95rem, calc(90 / 3973 * 100vw), 2.72rem);
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.text-f-78 {
+  font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
+  line-height: 1.26;
+}
+
+.text-f-70 {
+  font-size: clamp(0.8rem, calc(70 / 3973 * 100vw), 2.11rem);
+  line-height: 1.26;
+}
+
+.text-f-65 {
+  font-size: clamp(0.75rem, calc(65 / 3973 * 100vw), 1.96rem);
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.text-f-64 {
+  font-size: clamp(0.75rem, calc(64 / 3973 * 100vw), 1.94rem);
+  line-height: 1.26;
+}
+
+.text-f-50 {
+  font-size: clamp(0.65rem, calc(50 / 3973 * 100vw), 1.51rem);
+  line-height: 0.93;
+  letter-spacing: -0.01em;
+}
+
+.text-f-48 {
+  font-size: clamp(0.625rem, calc(48 / 3973 * 100vw), 1.45rem);
+  line-height: 1.26;
+}
+
+.text-f-40 {
+  font-size: clamp(0.55rem, calc(40 / 3973 * 100vw), 1.21rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+.text-f-36 {
+  font-size: clamp(0.5rem, calc(36 / 3973 * 100vw), 1.09rem);
+  line-height: 1.2;
+}
+
+.text-f-32 {
+  font-size: clamp(0.875rem, calc(32 / 3973 * 100vw), 1.21rem);
+  line-height: 1.2;
+}
+
+.site-section--lg {
+  padding-block: clamp(3rem, calc(200 / 3973 * 100vw), 8rem);
+}
+
+.radius-figma {
+  border-radius: clamp(12px, calc(20 / 3973 * 100vw), 20px);
+}
+
+.figma-icon-box {
+  width: clamp(3rem, calc(271 / 3973 * 100vw), 10.5rem);
+  height: auto;
+  flex-shrink: 0;
+}
+
+.figma-stat-circle {
+  width: clamp(3.5rem, calc(315 / 3973 * 100vw), 12rem);
+  height: clamp(3.5rem, calc(315 / 3973 * 100vw), 12rem);
+}
+
+.badge-pro-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(3.5rem, calc(237 / 3973 * 100vw), 9rem);
+  min-height: clamp(1.75rem, calc(128 / 3973 * 100vw), 5rem);
+  border-radius: clamp(12px, calc(20 / 3973 * 100vw), 20px);
+  background: #000;
+  padding-inline: clamp(0.5rem, calc(20 / 3973 * 100vw), 1.25rem);
+  font-family: var(--font-sora);
+  font-weight: 600;
+  color: var(--color-probusiness-naranja);
+}
+
+.figma-step-card {
+  min-height: clamp(18rem, calc(1235 / 3973 * 100vw), 38rem);
+}
+
+.figma-play-btn {
+  width: clamp(3.5rem, calc(242 / 3973 * 100vw), 9rem);
+  height: clamp(3.5rem, calc(242 / 3973 * 100vw), 9rem);
+}
+
+.figma-date-box {
+  min-width: clamp(8rem, calc(644 / 3973 * 100vw), 20rem);
+  min-height: clamp(7rem, calc(632 / 3973 * 100vw), 19rem);
+}

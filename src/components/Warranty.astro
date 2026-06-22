@@ -1,0 +1,148 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { asset } from '../lib/assets';
+
+const guarantees = [
+  { label: 'Caída en canal rojo' },
+  { label: 'Aforo en Aduana' },
+];
+---
+
+<section class="section-white site-section">
+  <div class="site-container">
+    <div class="warranty">
+      <ResponsiveImage
+        src="/images/sections/06-warranty/shield.png"
+        alt="Escudo de garantía ProBusiness"
+        class="warranty__shield"
+        sizes="(max-width: 1023px) 40vw, 280px"
+      />
+
+      <div class="warranty__content">
+        <h2 class="warranty__title font-epilogue">
+          <span class="warranty__title-line warranty__title-line--orange font-semibold">Garantía</span>
+          <span class="warranty__title-line warranty__title-line--black font-semibold">probusiness</span>
+        </h2>
+
+        <ul class="warranty__list">
+          {
+            guarantees.map((item) => (
+              <li class="warranty__item">
+                <img src={asset('/images/sections/06-warranty/icon-check.svg')} alt="" class="warranty__check" aria-hidden="true" />
+                <span class="warranty__label font-epilogue font-medium text-black">{item.label}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .warranty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 3rem);
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .warranty {
+      flex-direction: row;
+      align-items: center;
+      max-width: none;
+      gap: clamp(2rem, calc(80 / 3973 * 100vw), 5rem);
+    }
+  }
+
+  .warranty__shield,
+  .warranty :global(.warranty__shield) {
+    width: clamp(8rem, calc(551 / 3973 * 100vw), 18rem);
+    height: auto;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .warranty__content {
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .warranty__content {
+      text-align: left;
+    }
+  }
+
+  .warranty__title {
+    margin: 0;
+    line-height: 0.88;
+    letter-spacing: -0.06em;
+  }
+
+  .warranty__title-line {
+    display: block;
+  }
+
+  .warranty__title-line--orange {
+    font-size: clamp(1.5rem, calc(160 / 3973 * 100vw), 4.83rem);
+    color: #ff5410;
+  }
+
+  .warranty__title-line--black {
+    font-size: clamp(1.75rem, calc(180 / 3973 * 100vw), 5.44rem);
+    color: #000;
+    letter-spacing: -0.06em;
+  }
+
+  .warranty__list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    margin: clamp(1.25rem, calc(48 / 3973 * 100vw), 2.5rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 640px) {
+    .warranty__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(2rem, calc(64 / 3973 * 100vw), 5rem);
+    }
+
+    .warranty__content {
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .warranty__list {
+      justify-content: flex-start;
+    }
+
+    .warranty__content {
+      text-align: left;
+    }
+  }
+
+  .warranty__item {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+  }
+
+  .warranty__check {
+    width: clamp(2.5rem, calc(185 / 3973 * 100vw), 4.5rem);
+    height: clamp(2.5rem, calc(185 / 3973 * 100vw), 4.5rem);
+    flex-shrink: 0;
+  }
+
+  .warranty__label {
+    font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 1.1;
+  }
+</style>

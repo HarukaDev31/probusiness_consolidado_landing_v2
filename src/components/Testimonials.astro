@@ -1,0 +1,222 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { asset } from '../lib/assets';
+
+const testimonials = [
+  { image: '/images/sections/08-testimonials/card-1.png', name: 'Jhonny — Racks para TV' },
+  { image: '/images/sections/08-testimonials/card-2.png', name: 'Jhonny — Racks para TV' },
+  { image: '/images/sections/08-testimonials/card-3.png', name: 'Jhonny — Racks para TV' },
+  { image: '/images/sections/08-testimonials/card-4.png', name: 'Jhonny — Racks para TV' },
+];
+---
+
+<section id="testimonios" class="section-white site-section--lg">
+  <div class="site-container">
+    <h2 class="testimonials__title mx-auto max-w-5xl text-center font-epilogue font-medium text-black">
+      Personas como tú<br />
+      <span class="font-semibold">ya recibieron su mercadería</span>
+    </h2>
+
+    <div class="testimonials-carousel lg:hidden" aria-label="Testimonios" data-initial-index="1">
+      {
+        testimonials.map((item) => (
+          <article class="testimonials-carousel__slide">
+            <div class="testimonials-card">
+              <ResponsiveImage src={item.image} alt={`Caso de éxito: ${item.name}`} class="testimonials-card__img" sizes="78vw" />
+              <div class="testimonials-card__overlay">
+                <div class="testimonials-card__play-wrap">
+                  <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
+                </div>
+              </div>
+              <div class="testimonials-card__copy">
+                <p class="testimonials-card__label">Caso de éxito</p>
+                <p class="testimonials-card__name">{item.name}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="testimonials__grid hidden lg:grid">
+      {
+        testimonials.map((item) => (
+          <article class="testimonials-card">
+            <ResponsiveImage src={item.image} alt={`Caso de éxito: ${item.name}`} class="testimonials-card__img" sizes="25vw" />
+            <div class="testimonials-card__overlay">
+              <div class="testimonials-card__play-wrap">
+                <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
+              </div>
+            </div>
+            <div class="testimonials-card__copy testimonials-card__copy--below">
+              <p class="testimonials-card__label">Caso de éxito</p>
+              <p class="testimonials-card__name">{item.name}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__title {
+    font-size: clamp(1.35rem, calc(140 / 3973 * 100vw), 4.23rem);
+    line-height: 0.87;
+    letter-spacing: -0.06em;
+    margin-bottom: clamp(1.5rem, calc(64 / 3973 * 100vw), 3.5rem);
+  }
+
+  .testimonials__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+  }
+
+  .testimonials-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .testimonials-card__img,
+  .testimonials-card :global(.testimonials-card__img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 764 / 1318;
+    object-fit: cover;
+  }
+
+  .testimonials-card__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease;
+  }
+
+  .testimonials-card:hover .testimonials-card__overlay {
+    background: rgba(0, 0, 0, 0.28);
+  }
+
+  .testimonials-card__play-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(3.5rem, calc(242 / 3973 * 100vw), 9rem);
+    height: clamp(3.5rem, calc(242 / 3973 * 100vw), 9rem);
+    border-radius: 9999px;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .testimonials-card__play {
+    width: 42%;
+    height: 42%;
+    object-fit: contain;
+  }
+
+  .testimonials-card__copy {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem) clamp(0.75rem, calc(20 / 3973 * 100vw), 1.25rem);
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.82) 100%);
+    text-align: center;
+  }
+
+  .testimonials-card__copy--below {
+    position: static;
+    background: none;
+    padding-top: clamp(0.75rem, calc(20 / 3973 * 100vw), 1.25rem);
+    text-align: center;
+  }
+
+  .testimonials-card__copy--below .testimonials-card__label,
+  .testimonials-card__copy--below .testimonials-card__name {
+    color: #000;
+  }
+
+  .testimonials-card__label {
+    font-family: var(--font-epilogue);
+    font-size: clamp(0.5rem, calc(32 / 3973 * 100vw), 1rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .testimonials-card__name {
+    margin-top: 0.35rem;
+    font-family: var(--font-epilogue);
+    font-size: clamp(0.65rem, calc(48 / 3973 * 100vw), 1.45rem);
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 1.11;
+    color: #fff;
+  }
+
+  .testimonials-carousel {
+    display: none;
+  }
+
+  @media (max-width: 1023px) {
+    .testimonials-carousel {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 11%;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin-inline: calc(-1 * clamp(1rem, 5vw, 5rem));
+      padding-inline: 11%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .testimonials-carousel[data-ready='true'] {
+      opacity: 1;
+    }
+
+    .testimonials-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonials-carousel__slide {
+      flex: 0 0 78%;
+      scroll-snap-align: center;
+    }
+  }
+</style>
+
+<script>
+  function centerTestimonialsCarousel(carousel) {
+    if (window.matchMedia('(min-width: 1024px)').matches) return false;
+    const slides = carousel.querySelectorAll('.testimonials-carousel__slide');
+    const slide = slides[Number(carousel.dataset.initialIndex ?? '1')];
+    if (!slide || slide.offsetWidth === 0) return false;
+    const cr = carousel.getBoundingClientRect();
+    const sr = slide.getBoundingClientRect();
+    carousel.scrollLeft += sr.left - cr.left - (cr.width - sr.width) / 2;
+    carousel.dataset.ready = 'true';
+    return true;
+  }
+
+  function initTestimonialsCarousel() {
+    document.querySelectorAll('.testimonials-carousel').forEach((carousel) => {
+      carousel.removeAttribute('data-ready');
+      const center = () => centerTestimonialsCarousel(carousel);
+      requestAnimationFrame(() => requestAnimationFrame(center));
+      window.addEventListener('load', center, { once: true });
+      carousel.querySelectorAll('img').forEach((img) => {
+        if (!img.complete) img.addEventListener('load', center, { once: true });
+      });
+    });
+  }
+
+  initTestimonialsCarousel();
+  document.addEventListener('astro:page-load', initTestimonialsCarousel);
+</script>
