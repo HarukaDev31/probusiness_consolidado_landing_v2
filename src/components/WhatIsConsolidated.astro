@@ -302,43 +302,54 @@ const steps = [
     }
 
     .what-is__heading-row {
-      width: 92vw;
-      max-width: 92vw;
+      display: grid;
+      grid-template-columns: max-content max-content max-content;
+      grid-template-rows: auto auto;
+      justify-content: center;
+      align-items: center;
+      column-gap: 0.3em;
+      row-gap: 0.02em;
+      width: 100%;
+      max-width: 100%;
       margin-inline: auto;
-      gap: 1rem;
     }
 
     .what-is__icon {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      align-self: center;
       width: clamp(2.75rem, 14vw, 4rem);
       height: auto;
       aspect-ratio: 270.775 / 287.874;
       object-fit: contain;
-      align-self: center;
       margin-right: 0;
     }
 
     .what-is__title {
-      display: grid;
-      grid-template-columns: max-content max-content;
-      column-gap: 0.3em;
-      row-gap: 0.1em;
-      align-items: baseline;
-      text-align: left;
+      display: contents;
     }
 
     .what-is__title-que {
-      grid-column: 1;
+      grid-column: 2;
       grid-row: 1;
+      align-self: end;
+      line-height: 1;
     }
 
     .what-is__title-carga {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 1;
+      align-self: end;
+      line-height: 1;
     }
 
     .what-is__title-consolidada {
-      grid-column: 1 / -1;
+      grid-column: 2 / 4;
       grid-row: 2;
+      justify-self: center;
+      text-align: center;
+      line-height: 1;
+      margin-top: -0.04em;
     }
 
     .what-is__intro {

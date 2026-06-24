@@ -200,30 +200,35 @@ const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
           >
             <summary class="how-phase__header">
               <div class="how-phase__header-art" aria-hidden="true">
-                <ResponsiveImage
-                  src={phase.heroImage}
-                  alt=""
-                  class="how-phase__art"
-                  loading="lazy"
-                  sizes="8rem"
-                />
+                <div class="how-phase__art-wrap">
+                  <ResponsiveImage
+                    src={phase.heroImage}
+                    alt=""
+                    class="how-phase__art"
+                    loading="lazy"
+                    sizes="8rem"
+                    style="mix-blend-mode: multiply"
+                  />
+                </div>
               </div>
               <div class="how-phase__header-content">
-                <span class="how-phase__icon-wrap" aria-hidden="true">
-                  <img
-                    src={asset(phase.icon)}
-                    alt=""
-                    class="how-phase__icon"
-                  />
-                </span>
-                <span class="how-phase__labels">
-                  <span class="how-phase__eyebrow font-epilogue font-normal text-black text-f-65">
-                    FASE {phase.id}:
+                <div class="how-phase__header-main">
+                  <span class="how-phase__icon-wrap" aria-hidden="true">
+                    <img
+                      src={asset(phase.icon)}
+                      alt=""
+                      class="how-phase__icon"
+                    />
                   </span>
-                  <span class="how-phase__name font-epilogue font-semibold text-black text-f-78">
-                    {phase.label}
+                  <span class="how-phase__labels">
+                    <span class="how-phase__eyebrow font-epilogue font-normal text-black text-f-65">
+                      FASE {phase.id}:
+                    </span>
+                    <span class="how-phase__name font-epilogue font-semibold text-black text-f-78">
+                      {phase.label}
+                    </span>
                   </span>
-                </span>
+                </div>
                 <span class="how-phase__chevron" aria-hidden="true">
                   <img
                     src={asset("/images/sections/05-how-it-works/chevron-down.svg")}
@@ -503,63 +508,94 @@ const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
   .how-phase__header-art {
     position: absolute;
     inset: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     overflow: hidden;
     pointer-events: none;
     border-radius: var(--phase-radius) var(--phase-radius) 0 0;
-    opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
   }
 
   .how-phase[open] .how-phase__header-art {
-    opacity: 1;
     visibility: visible;
   }
 
-  .how-phase__art {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 36%;
-    height: 72%;
+  .how-phase__art-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: clamp(5rem, 32%, 10rem);
+    max-height: 85%;
+    margin-right: 0;
+    flex-shrink: 0;
+    isolation: isolate;
+  }
+
+  .how-phase--1[open] .how-phase__art-wrap,
+  .how-phase--1[open] .how-phase__art-wrap :global(picture) {
+    background-color: #fcdcd1;
+  }
+
+  .how-phase--2[open] .how-phase__art-wrap,
+  .how-phase--2[open] .how-phase__art-wrap :global(picture) {
+    background-color: #fce5d3;
+  }
+
+  .how-phase--3[open] .how-phase__art-wrap,
+  .how-phase--3[open] .how-phase__art-wrap :global(picture) {
+    background-color: #ff9469;
+  }
+
+  .how-phase__art-wrap :global(picture),
+  .how-phase__art-wrap :global(img.how-phase__art) {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 85%;
     margin: 0;
     padding: 0;
-    display: block;
-    transform: translateY(-50%) translateX(0.75rem);
-    opacity: 0;
     object-fit: contain;
     object-position: right center;
+  }
+
+  .how-phase__art-wrap :global(img.how-phase__art) {
     mix-blend-mode: multiply;
-    pointer-events: none;
-    transition:
-      transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .how-phase[open] .how-phase__art {
-    transform: translateY(-50%) translateX(0);
-    opacity: 1;
-  }
-
-  .how-phase[open] .how-phase__labels {
-    max-width: 52%;
   }
 
   .how-phase__header-content {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: var(--phase-icon-circle) 1fr auto;
+    display: flex;
     align-items: center;
-    gap: clamp(0.5rem, calc(70 / 3973 * 100vw), 1.75rem);
+    justify-content: space-between;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.25rem);
     min-height: var(--phase-header-h);
     padding: clamp(0.85rem, calc(80 / 3973 * 100vw), 1.75rem)
       clamp(1rem, calc(120 / 3973 * 100vw), 2.25rem);
   }
 
+  .how-phase:not([open]) .how-phase__header-content {
+    justify-content: space-between;
+  }
+
   .how-phase[open] .how-phase__header-content {
-    grid-template-columns: var(--phase-icon-circle) 1fr;
-    padding-right: 0;
+    justify-content: flex-start;
+    padding-right: clamp(1rem, calc(72 / 3973 * 100vw), 1.85rem);
+  }
+
+  .how-phase__header-main {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, calc(70 / 3973 * 100vw), 1.75rem);
+    min-width: 0;
+    flex: 1;
+  }
+
+  .how-phase[open] .how-phase__header-main {
+    flex: 1;
+    max-width: 52%;
   }
 
   .how-phase__icon-wrap {
@@ -635,10 +671,16 @@ const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
     object-fit: contain;
   }
 
+  .how-phase:not([open]) .how-phase__chevron {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+
   .how-phase[open] .how-phase__chevron {
+    display: none;
     opacity: 0;
     visibility: hidden;
-    transform: rotate(-180deg) scale(0.85);
   }
 
   .how-phase--1 .how-phase__header {
@@ -854,7 +896,8 @@ const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
   }
 
   .how-it-works__thumb,
-  .how-it-works__step :global(.how-it-works__thumb) {
+  .how-it-works__step :global(.how-it-works__thumb),
+  .how-it-works__step :global(picture img.how-it-works__thumb) {
     width: clamp(5rem, calc(444 / 3973 * 100vw), 11rem);
     height: clamp(5rem, calc(444 / 3973 * 100vw), 11rem);
     object-fit: contain;
@@ -955,10 +998,12 @@ const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
     }
 
     .how-it-works__thumb,
-    .how-it-works__step :global(.how-it-works__thumb) {
+    .how-it-works__step :global(.how-it-works__thumb),
+    .how-it-works__step :global(picture img.how-it-works__thumb) {
       width: var(--step-thumb);
       height: var(--step-thumb);
       margin: 0;
+      mix-blend-mode: multiply;
     }
 
     .how-it-works__badge {
@@ -1034,6 +1079,23 @@ const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
 
     .how__pro {
       font-size: clamp(1.31rem, calc(144 / 3973 * 100vw), 4.35rem);
+    }
+
+    .how-phase__art-wrap {
+      width: clamp(5rem, 36vw, 8.5rem);
+      max-height: 85%;
+    }
+
+    .how-phase:not([open]) .how-phase__header-content {
+      padding-right: clamp(1rem, calc(72 / 3973 * 100vw), 1.5rem);
+    }
+
+    .how-phase[open] .how-phase__header-content {
+      padding-right: clamp(1rem, calc(72 / 3973 * 100vw), 1.5rem);
+    }
+
+    .how-phase[open] .how-phase__header-main {
+      max-width: 48%;
     }
   }
 </style>

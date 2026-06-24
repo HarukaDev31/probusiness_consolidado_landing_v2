@@ -214,3 +214,8 @@ body {
     justify-content: center;
   }
 }
+
+/* Blend phase hero art with card background (unscoped for picture/srcset) */
+.how-phase__art-wrap img.how-phase__art {
+  mix-blend-mode: multiply;
+}
