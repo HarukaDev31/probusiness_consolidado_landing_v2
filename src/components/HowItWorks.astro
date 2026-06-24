@@ -2,6 +2,26 @@
 import ResponsiveImage from "./ResponsiveImage.astro";
 import { asset } from "../lib/assets";
 
+const PATH_WIDTH = 3500.5;
+const PATH_HEIGHT = 3452;
+
+const rowAnchors = [
+  { y: 41, xStart: 325, xEnd: 3082.5 },
+  { y: 1792, xStart: 418, xEnd: 3082.5 },
+  { y: 3411, xStart: 418, xEnd: 3140 },
+];
+
+function getStepCoords(row: number, col: number) {
+  const anchor = rowAnchors[row - 1];
+  const span = anchor.xEnd - anchor.xStart;
+  const x = anchor.xStart + span * ((2 * col - 1) / 8);
+
+  return {
+    x: `${(x / PATH_WIDTH) * 100}%`,
+    y: `${(anchor.y / PATH_HEIGHT) * 100}%`,
+  };
+}
+
 const steps = [
   {
     num: 1,
@@ -79,7 +99,7 @@ const steps = [
     num: 10,
     row: 3,
     col: 2,
-    title: "Descargamos tu mercancía en Perú",
+    title: "Descargamos tu mercadería en Perú",
     body: "Verificamos que llegue en óptimas condiciones a nuestros almacenes.",
     image: "/images/sections/05-how-it-works/step-10.png",
   },
@@ -98,71 +118,215 @@ const steps = [
     title: "¡Listo! Tu importación fue todo un éxito.",
     body: "",
     image: "/images/sections/05-how-it-works/step-12.png",
+    final: true,
+  },
+].map((step) => {
+  const coords = getStepCoords(step.row, step.col);
+
+  return {
+    ...step,
+    x: coords.x,
+    y: coords.y,
+  };
+});
+
+const phases = [
+  {
+    id: 1,
+    label: "NEGOCIACIÓN",
+    icon: "/images/sections/05-how-it-works/icon-phase-1.svg",
+    heroImage: "/images/sections/05-how-it-works/step-01.png",
+    modifier: "how-phase--1",
+    stepNums: [1, 2, 3, 4],
+  },
+  {
+    id: 2,
+    label: "LOGÍSTICA",
+    icon: "/images/sections/05-how-it-works/icon-phase-2.svg",
+    heroImage: "/images/sections/05-how-it-works/step-06.png",
+    modifier: "how-phase--2",
+    stepNums: [5, 6, 7, 8],
+  },
+  {
+    id: 3,
+    label: "ENTREGA Y ADUANAS",
+    icon: "/images/sections/05-how-it-works/icon-phase-3.svg",
+    heroImage: "/images/sections/05-how-it-works/step-12.png",
+    modifier: "how-phase--3",
+    stepNums: [9, 10, 11, 12],
   },
 ];
+
+const stepByNum = Object.fromEntries(steps.map((step) => [step.num, step]));
 ---
 
-<section class="how section-white site-section--lg overflow-hidden">
+<section class="how section-white site-section--lg">
   <div class="site-container">
-    <div class="how__heading">
-      <img
-        src={asset("/images/sections/03-what-is/icon-box.svg")}
-        alt=""
-        class="how__icon"
-        aria-hidden="true"
-      />
-      <h2 class="how__title font-epilogue font-medium text-black">
-        Así funciona nuestro
-        <span class="how__title-accent font-semibold text-probusiness-naranja">
-          <span>servicio de importación</span>
-          <span class="badge-pro--filled how__pro font-sora font-semibold">PRO</span>
-        </span>
-      </h2>
+    <header class="how__heading">
+      <div class="how__heading-row">
+        <h2 class="how__title section-title font-epilogue font-medium text-black">
+          <span class="how__title-line how__title-line--1">
+            <img
+              src={asset("/images/sections/03-what-is/icon-box.svg")}
+              alt=""
+              class="how__icon"
+              aria-hidden="true"
+            />
+            <span class="how__title-line1-text">Así funciona</span>
+          </span>
+          <span class="how__title-bottom">
+            <span class="how__title-line how__title-line--2">
+              <span class="how__title-nuestro">nuestro</span>
+              {' '}
+              <span class="how__title-accent">servicio de</span>
+            </span>
+            <span class="how__title-line how__title-line--3">
+              <span class="how__title-accent">importación</span>
+              {' '}
+              <span class="badge-pro--filled how__pro font-sora font-semibold">PRO</span>
+            </span>
+          </span>
+        </h2>
+      </div>
+    </header>
+
+    <div class="how-phases" aria-label="Fases del proceso de importación">
+      {
+        phases.map((phase, index) => (
+          <details
+            name="how-phases"
+            class={`how-phase ${phase.modifier}`}
+            open={index === 0}
+          >
+            <summary class="how-phase__header">
+              <div class="how-phase__header-art" aria-hidden="true">
+                <ResponsiveImage
+                  src={phase.heroImage}
+                  alt=""
+                  class="how-phase__art"
+                  loading="lazy"
+                  sizes="8rem"
+                />
+              </div>
+              <div class="how-phase__header-content">
+                <span class="how-phase__icon-wrap" aria-hidden="true">
+                  <img
+                    src={asset(phase.icon)}
+                    alt=""
+                    class="how-phase__icon"
+                  />
+                </span>
+                <span class="how-phase__labels">
+                  <span class="how-phase__eyebrow font-epilogue font-normal text-black text-f-65">
+                    FASE {phase.id}:
+                  </span>
+                  <span class="how-phase__name font-epilogue font-semibold text-black text-f-78">
+                    {phase.label}
+                  </span>
+                </span>
+                <span class="how-phase__chevron" aria-hidden="true">
+                  <img
+                    src={asset("/images/sections/05-how-it-works/chevron-down.svg")}
+                    alt=""
+                  />
+                </span>
+              </div>
+            </summary>
+            <div class="how-phase__panel">
+              <div class="how-phase__panel-inner">
+              <ol class="how-phase__timeline">
+                {
+                  phase.stepNums.map((num) => {
+                    const step = stepByNum[num];
+
+                    return (
+                      <li class="how-phase__item">
+                        <span class="how-phase__badge-wrap">
+                          <span class="how-phase__badge-glow" aria-hidden="true"></span>
+                          <span class="step-badge how-phase__badge font-sora font-medium">{num}</span>
+                        </span>
+                        <div class="how-phase__copy">
+                          {step.final ? (
+                            <h3 class="how-phase__title how-phase__title--final font-epilogue text-black text-f-65">
+                              <span class="font-semibold">¡Listo!</span>
+                              <span class="font-medium"> Tu importación fue todo un éxito.</span>
+                            </h3>
+                          ) : (
+                            <>
+                              <h3 class="how-phase__title font-epilogue font-semibold text-black text-f-65">
+                                {step.title}
+                              </h3>
+                              {step.body ? (
+                                <p class="how-phase__body font-epilogue font-normal text-black text-f-65">
+                                  {step.body}
+                                </p>
+                              ) : null}
+                            </>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })
+                }
+              </ol>
+              </div>
+            </div>
+          </details>
+        ))
+      }
     </div>
 
     <div class="how-it-works">
-      <img
-        src={asset("/images/sections/05-how-it-works/path.svg")}
-        alt=""
-        class="how-it-works__path"
-        aria-hidden="true"
-      />
+      <div class="how-it-works__canvas">
+        <img
+          src={asset("/images/sections/05-how-it-works/path.svg")}
+          alt=""
+          class="how-it-works__path"
+          aria-hidden="true"
+        />
 
-      <ol class="how-it-works__list">
+        <ol class="how-it-works__list">
         {
           steps.map((step) => (
             <li
               class="how-it-works__step"
-              style={`--step-row: ${step.row}; --step-col: ${step.col};`}
+              style={`--step-x: ${step.x}; --step-y: ${step.y};`}
               data-step={step.num}
             >
-              <span class="step-badge">{step.num}</span>
               <ResponsiveImage
                 src={step.image}
                 alt=""
                 class="how-it-works__thumb"
-                sizes="(max-width: 1023px) 40vw, 11rem"
+                sizes="(max-width: 767px) 40vw, 11rem"
               />
+              <span class="step-badge how-it-works__badge">{step.num}</span>
               <div class="how-it-works__text">
-                <h3 class="how-it-works__step-title font-epilogue font-semibold text-black">
-                  {step.title}
-                </h3>
-                {step.body ? (
-                  <p class="how-it-works__step-body font-epilogue font-normal text-black/80">
-                    {step.body}
-                  </p>
-                ) : null}
+                {step.final ? (
+                  <h3 class="how-it-works__step-title how-it-works__step-title--final font-epilogue text-black">
+                    <span class="font-semibold">¡Listo!</span>
+                    <span class="font-medium"> Tu importación fue todo un éxito.</span>
+                  </h3>
+                ) : (
+                  <>
+                    <h3 class="how-it-works__step-title font-epilogue font-semibold text-black">
+                      {step.title}
+                    </h3>
+                    {step.body ? (
+                      <p class="how-it-works__step-body font-epilogue font-normal text-black">
+                        {step.body}
+                      </p>
+                    ) : null}
+                  </>
+                )}
               </div>
             </li>
           ))
         }
       </ol>
+      </div>
     </div>
 
-    <p class="how__coverage font-epilogue font-medium text-black">
-      <span class="how__coverage-label">Cobertura en:</span>
-      <span class="how__coverage-value">todo el Perú</span>
-    </p>
+   
   </div>
 </section>
 
@@ -171,16 +335,24 @@ const steps = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
     text-align: center;
+    position: relative;
+    z-index: 2;
     margin-bottom: clamp(2rem, calc(64 / 3973 * 100vw), 4rem);
   }
 
-  @media (min-width: 1024px) {
-    .how__heading {
-      flex-direction: row;
-      justify-content: center;
-    }
+  .how__heading-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.125rem, calc(4 / 3973 * 100vw), 0.25rem);
+  }
+
+  .how__title-line--1 {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(0.125rem, calc(4 / 3973 * 100vw), 0.25rem);
   }
 
   .how__icon {
@@ -190,29 +362,67 @@ const steps = [
     flex-shrink: 0;
   }
 
+  .how__title-line1-text {
+    display: inline;
+  }
+
   .how__title {
-    font-size: clamp(1rem, calc(140 / 3973 * 100vw), 3rem);
-    line-height: 1.05;
-    letter-spacing: -0.06em;
-    max-width: 28ch;
     text-align: center;
   }
 
   .how__title-accent {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3em;
+    font-weight: 600;
+    color: var(--color-probusiness-naranja);
+  }
+
+  @media (min-width: 1024px) {
+    .how__heading-row {
+      gap: clamp(1rem, calc(40 / 3973 * 100vw), 2rem);
+    }
+
+    .how__title-line--1 {
+      gap: clamp(1rem, calc(40 / 3973 * 100vw), 2rem);
+    }
+
+    .how__title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.05em;
+      text-align: center;
+    }
+
+    .how__title-line--1::after {
+      content: ' nuestro';
+    }
+
+    .how__title-bottom {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.28em;
+    }
+
+    .how__title-line--2,
+    .how__title-line--3 {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.28em;
+    }
+
+    .how__title-nuestro {
+      display: none;
+    }
   }
 
   .how__pro {
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
+    font-size: clamp(0.875rem, calc(96 / 3973 * 100vw), 2.9rem);
     padding: 0.1em 0.45em;
-    border-radius: 20px;
+    border-radius: var(--radius-ui);
     color: #fff;
   }
 
@@ -233,56 +443,406 @@ const steps = [
 
   .how-it-works {
     position: relative;
+    width: 100%;
+    margin-inline: auto;
+    display: none;
+  }
+
+  .how-phases {
+    --phase-radius: var(--radius-ui);
+    --phase-header-h: clamp(5.5rem, calc(388 / 3973 * 100vw), 12.2rem);
+    --phase-icon-circle: clamp(4.5rem, calc(270 / 3973 * 100vw), 8.4rem);
+    --phase-badge-outer: clamp(3.5rem, calc(240 / 3973 * 100vw), 6rem);
+    --phase-badge-inner: clamp(2.6rem, calc(178 / 3973 * 100vw), 4.45rem);
+    --phase-step-gap: clamp(1.75rem, calc(631 / 3973 * 100vw), 4rem);
+
+    width: 90%;
+    max-width: 90%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.65rem, calc(85 / 3973 * 100vw), 1.5rem);
+  }
+
+  .how-phase {
+    border-radius: var(--phase-radius);
+    overflow: hidden;
+    background: #fef1e9;
+    transition: background-color 0.35s ease;
+  }
+
+  .how-phase--1:not([open]) {
+    background: #fcdcd1;
+  }
+
+  .how-phase--2:not([open]) {
+    background: #fce5d3;
+  }
+
+  .how-phase--3:not([open]) {
+    background: rgba(255, 84, 16, 0.59);
+  }
+
+  .how-phase[open] {
+    background: #fef1e9;
+  }
+
+  .how-phase__header {
+    position: relative;
+    min-height: var(--phase-header-h);
+    list-style: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-radius 0.35s ease;
+  }
+
+  .how-phase__header::-webkit-details-marker {
+    display: none;
+  }
+
+  .how-phase__header-art {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: var(--phase-radius) var(--phase-radius) 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .how-phase[open] .how-phase__header-art {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .how-phase__art {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 36%;
+    height: 72%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    transform: translateY(-50%) translateX(0.75rem);
+    opacity: 0;
+    object-fit: contain;
+    object-position: right center;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    transition:
+      transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .how-phase[open] .how-phase__art {
+    transform: translateY(-50%) translateX(0);
+    opacity: 1;
+  }
+
+  .how-phase[open] .how-phase__labels {
+    max-width: 52%;
+  }
+
+  .how-phase__header-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: var(--phase-icon-circle) 1fr auto;
+    align-items: center;
+    gap: clamp(0.5rem, calc(70 / 3973 * 100vw), 1.75rem);
+    min-height: var(--phase-header-h);
+    padding: clamp(0.85rem, calc(80 / 3973 * 100vw), 1.75rem)
+      clamp(1rem, calc(120 / 3973 * 100vw), 2.25rem);
+  }
+
+  .how-phase[open] .how-phase__header-content {
+    grid-template-columns: var(--phase-icon-circle) 1fr;
+    padding-right: 0;
+  }
+
+  .how-phase__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--phase-icon-circle);
+    height: var(--phase-icon-circle);
+    border-radius: 50%;
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  .how-phase__icon {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 58%;
+    max-height: 58%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .how-phase--2 .how-phase__icon {
+    max-width: 55%;
+    max-height: 55%;
+  }
+
+  .how-phase--3 .how-phase__icon {
+    max-width: 44%;
+    max-height: 44%;
+  }
+
+  .how-phase__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05em;
+    min-width: 0;
+  }
+
+  .how-phase__eyebrow {
+    line-height: 1.11;
+    letter-spacing: -0.01em;
+  }
+
+  .how-phase__name {
+    line-height: 1.11;
+    letter-spacing: -0.02em;
+  }
+
+  .how-phase__chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(1.1rem, calc(42 / 3973 * 100vw), 1.65rem);
+    height: auto;
+    flex-shrink: 0;
+    color: #000;
+    opacity: 1;
+    transform: rotate(0deg);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s ease;
+  }
+
+  .how-phase__chevron img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 84 / 48;
+    object-fit: contain;
+  }
+
+  .how-phase[open] .how-phase__chevron {
+    opacity: 0;
+    visibility: hidden;
+    transform: rotate(-180deg) scale(0.85);
+  }
+
+  .how-phase--1 .how-phase__header {
+    background: #fcdcd1;
+  }
+
+  .how-phase--2 .how-phase__header {
+    background: #fce5d3;
+  }
+
+  .how-phase--3 .how-phase__header {
+    background: rgba(255, 84, 16, 0.59);
+  }
+
+  .how-phase:not([open]) .how-phase__header {
+    background: transparent;
+  }
+
+  .how-phase:not([open]) .how-phase__header {
+    border-radius: var(--phase-radius);
+  }
+
+  .how-phase[open] .how-phase__header {
+    border-radius: var(--phase-radius) var(--phase-radius) 0 0;
+  }
+
+  .how-phase__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    background: #fef1e9;
+    border-radius: 0 0 var(--phase-radius) var(--phase-radius);
+    transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .how-phase[open] .how-phase__panel {
+    grid-template-rows: 1fr;
+  }
+
+  .how-phase__panel-inner {
+    overflow: hidden;
+    min-height: 0;
+    position: relative;
+    padding: 0
+      clamp(1rem, calc(72 / 3973 * 100vw), 1.85rem)
+      0
+      clamp(1rem, calc(130 / 3973 * 100vw), 2.85rem);
+    transition: padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .how-phase[open] .how-phase__panel-inner {
+    padding: clamp(1rem, calc(72 / 3973 * 100vw), 1.85rem)
+      clamp(1rem, calc(72 / 3973 * 100vw), 1.85rem)
+      clamp(1.25rem, calc(88 / 3973 * 100vw), 2.35rem)
+      clamp(1rem, calc(130 / 3973 * 100vw), 2.85rem);
+  }
+
+  .how-phase__timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--phase-step-gap);
+  }
+
+  .how-phase__timeline::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--phase-badge-outer) / 2);
+    top: calc(var(--phase-badge-outer) / 2);
+    bottom: calc(var(--phase-badge-outer) / 2);
+    width: clamp(6px, calc(13 / 3973 * 100vw), 13px);
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #ff5410 0%, #ff733b 75.48%);
+    border-radius: var(--radius-ui);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .how-phase__item {
+    display: grid;
+    grid-template-columns: var(--phase-badge-outer) 1fr;
+    gap: clamp(0.35rem, calc(48 / 3973 * 100vw), 1.25rem);
+    align-items: start;
+    position: relative;
+  }
+
+  .how-phase__badge-wrap {
+    position: relative;
+    z-index: 1;
+    width: var(--phase-badge-outer);
+    height: var(--phase-badge-outer);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .how-phase__badge-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: clamp(2rem, calc(155 / 3973 * 100vw), 9.7rem);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 84, 16, 0.36) 0%,
+      rgba(255, 115, 59, 0.36) 46.49%,
+      rgba(255, 84, 16, 0.36) 100%
+    );
+    box-shadow: 0 1px 18.4px 12px rgba(255, 106, 41, 0.18);
+    border: 0.5px solid transparent;
+  }
+
+  .how-phase__badge.step-badge {
+    position: relative;
+    z-index: 1;
+    width: var(--phase-badge-inner);
+    min-width: var(--phase-badge-inner);
+    height: var(--phase-badge-inner);
+    min-height: var(--phase-badge-inner);
+    border-radius: clamp(2rem, calc(155 / 3973 * 100vw), 9.7rem);
+    font-size: clamp(0.95rem, calc(90 / 3973 * 100vw), 2.72rem);
+    line-height: 0.95;
+    font-weight: 500;
+  }
+
+  .how-phase__copy {
+    padding-top: clamp(0.1rem, calc(8 / 3973 * 100vw), 0.35rem);
+    min-width: 0;
+  }
+
+  .how-phase__title {
+    line-height: 1.11;
+    margin: 0;
+  }
+
+  .how-phase__title--final {
+    line-height: 1.15;
+  }
+
+  .how-phase__body {
+    margin: clamp(0.25rem, calc(12 / 3973 * 100vw), 0.75rem) 0 0;
+    line-height: 1.11;
+  }
+
+  @keyframes how-phase-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.65rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .how-phase[open] .how-phase__item {
+    animation: how-phase-item-in 0.42s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+  }
+
+  .how-phase[open] .how-phase__item:nth-child(1) {
+    animation-delay: 0.06s;
+  }
+
+  .how-phase[open] .how-phase__item:nth-child(2) {
+    animation-delay: 0.14s;
+  }
+
+  .how-phase[open] .how-phase__item:nth-child(3) {
+    animation-delay: 0.22s;
+  }
+
+  .how-phase[open] .how-phase__item:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .how-phase,
+    .how-phase__header,
+    .how-phase__header-art,
+    .how-phase__art,
+    .how-phase__chevron,
+    .how-phase__panel,
+    .how-phase__panel-inner {
+      transition: none !important;
+    }
+
+    .how-phase[open] .how-phase__item {
+      animation: none !important;
+    }
   }
 
   .how-it-works__path {
     display: none;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 92%;
-    height: auto;
-    aspect-ratio: 3500.5 / 3452;
-    transform: translate(-50%, -50%);
-    object-fit: contain;
-    opacity: 0.55;
-    z-index: 0;
   }
 
   .how-it-works__list {
-    position: relative;
-    z-index: 1;
     display: grid;
     gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 2.5rem);
     grid-template-columns: 1fr;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  @media (min-width: 1024px) {
-    .how-it-works__path {
-      display: block;
-    }
-
-    .how-it-works {
-      min-height: clamp(32rem, calc(3370 / 3973 * 100vw), 56rem);
-      padding-inline: clamp(0.25rem, calc(16 / 3973 * 100vw), 1.5rem);
-    }
-
-    .how-it-works__list {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-template-rows: repeat(3, auto);
-      gap: clamp(1rem, calc(32 / 3973 * 100vw), 2rem)
-        clamp(0.5rem, calc(16 / 3973 * 100vw), 1.25rem);
-      align-items: start;
-    }
-
-    .how-it-works__step {
-      grid-row: var(--step-row);
-      grid-column: var(--step-col);
-    }
   }
 
   .how-it-works__step {
@@ -298,21 +858,182 @@ const steps = [
     width: clamp(5rem, calc(444 / 3973 * 100vw), 11rem);
     height: clamp(5rem, calc(444 / 3973 * 100vw), 11rem);
     object-fit: contain;
-    margin: clamp(0.5rem, calc(16 / 3973 * 100vw), 1rem) 0;
+    mix-blend-mode: multiply;
+  }
+
+  .how-it-works__badge {
+    margin-block: clamp(0.75rem, calc(32 / 3973 * 100vw), 2rem);
+    min-width: clamp(3rem, calc(178 / 3973 * 100vw), 5.5rem);
+    min-height: clamp(3rem, calc(176 / 3973 * 100vw), 5.5rem);
+    border-radius: clamp(2rem, calc(155 / 3973 * 100vw), 9.7rem);
+    font-size: clamp(1.5rem, calc(90 / 3973 * 100vw), 3.5rem);
+    font-weight: 500;
   }
 
   .how-it-works__text {
-    max-width: 22ch;
+    max-width: clamp(14rem, calc(641 / 3973 * 100vw), 22rem);
   }
 
   .how-it-works__step-title {
-    font-size: clamp(0.7rem, calc(36 / 3973 * 100vw), 1.09rem);
-    line-height: 1.2;
+    font-size: clamp(0.6875rem, calc(52 / 3973 * 100vw), 1.65rem);
+    line-height: 1.11;
+  }
+
+  .how-it-works__step-title--final {
+    font-size: clamp(0.75rem, calc(62 / 3973 * 100vw), 2rem);
+    line-height: 1.02;
   }
 
   .how-it-works__step-body {
-    margin-top: 0.35rem;
-    font-size: clamp(0.65rem, calc(28 / 3973 * 100vw), 0.95rem);
-    line-height: 1.35;
+    margin-top: clamp(0.35rem, calc(12 / 3973 * 100vw), 0.75rem);
+    font-size: clamp(0.6875rem, calc(52 / 3973 * 100vw), 1.65rem);
+    line-height: 1.11;
+  }
+
+  @media (min-width: 1024px) {
+    .how-phases {
+      display: none;
+    }
+
+    .how-it-works {
+      display: block;
+    }
+
+    .how__heading {
+      margin-bottom: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    }
+
+    .how-it-works {
+      --step-thumb: clamp(3.25rem, calc(444 / 3973 * 100vw), 11rem);
+      --step-badge: clamp(2.75rem, calc(178 / 3973 * 100vw), 5.5rem);
+      --step-pin-gap: clamp(0.35rem, calc(16 / 3973 * 100vw), 1rem);
+      --step-text-gap: clamp(0.5rem, calc(24 / 3973 * 100vw), 1.25rem);
+
+      padding-top: calc(
+        var(--step-thumb) + clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem)
+      );
+    }
+
+    .how-it-works__canvas {
+      position: relative;
+      width: min(100%, calc(3418.5 / 3973 * 100vw));
+      aspect-ratio: 3500.5 / 3452;
+      margin-inline: auto;
+      margin-bottom: clamp(8rem, calc(360 / 3973 * 100vw), 14rem);
+    }
+
+    .how-it-works__path {
+      display: block;
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 0;
+    }
+
+    .how-it-works__list {
+      position: absolute;
+      inset: 0;
+      display: block;
+      z-index: 1;
+    }
+
+    .how-it-works__step {
+      position: absolute;
+      left: var(--step-x);
+      top: var(--step-y);
+      width: min(24vw, clamp(11rem, calc(641 / 3973 * 100vw), 22rem));
+      padding: 0;
+      transform: translate(
+        -50%,
+        calc(
+          -1 * (var(--step-thumb) + var(--step-pin-gap) + var(--step-badge) / 2)
+        )
+      );
+    }
+
+    .how-it-works__thumb,
+    .how-it-works__step :global(.how-it-works__thumb) {
+      width: var(--step-thumb);
+      height: var(--step-thumb);
+      margin: 0;
+    }
+
+    .how-it-works__badge {
+      width: var(--step-badge);
+      min-width: var(--step-badge);
+      height: var(--step-badge);
+      min-height: var(--step-badge);
+      margin: var(--step-pin-gap) 0 var(--step-text-gap);
+      border-radius: clamp(2rem, calc(155 / 3973 * 100vw), 9.7rem);
+      font-size: clamp(1.25rem, calc(90 / 3973 * 100vw), 3.5rem);
+    }
+
+    .how-it-works__text {
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .how__heading {
+      align-items: center;
+      text-align: center;
+    }
+
+    .how__heading-row {
+      --how-icon-size: clamp(1.75rem, 8.5vw, 2.35rem);
+      --how-icon-gap: clamp(0.5rem, calc(16 / 3973 * 100vw), 1rem);
+
+      width: 90%;
+      max-width: 90%;
+      margin-inline: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .how__icon {
+      width: var(--how-icon-size);
+      margin: 0;
+    }
+
+    .how__title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+      line-height: 1.05;
+    }
+
+    .how__title-bottom {
+      display: contents;
+    }
+
+    .how__title-line--1 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--how-icon-gap);
+      width: auto;
+    }
+
+    .how__title-line--2,
+    .how__title-line--3 {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .how__title-line--3 .how__pro {
+      display: inline-flex;
+      vertical-align: baseline;
+    }
+
+    .how__pro {
+      font-size: clamp(1.31rem, calc(144 / 3973 * 100vw), 4.35rem);
+    }
   }
 </style>

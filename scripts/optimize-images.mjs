@@ -15,10 +15,16 @@ const WIDTH_CANDIDATES = [400, 480, 600, 768, 960, 1280, 1440, 1920];
 
 const FOLDER_MAX = {
   '01-header': 400,
-  '04-features': 1280,
-  '07-categories': 600,
-  '11-benefits': 400,
-  '14-footer': 500,
+  '02-hero': 1920,
+  '03-what-is': 960,
+  '04-key-benefit': 1280,
+  '05-how-it-works': 768,
+  '06-warranty': 600,
+  '07-why-choose': 600,
+  '08-testimonials': 600,
+  '09-maritime': 1920,
+  '10-contact': 768,
+  '12-footer': 500,
 };
 
 const RASTER_EXT = new Set(['.png', '.jpg', '.jpeg']);
@@ -39,8 +45,13 @@ async function walk(dir) {
   return files;
 }
 
+function sectionFolder(relDir) {
+  const parts = relDir.split(/[/\\]/).filter(Boolean);
+  return parts.find((part) => /^\d{2}-/.test(part)) ?? parts.at(-1) ?? '';
+}
+
 function pickWidths(sourceWidth, relDir, filename) {
-  const section = relDir.split(/[/\\]/)[0] ?? '';
+  const section = sectionFolder(relDir);
   const folderMax = FOLDER_MAX[section] ?? 1920;
   const maxW = Math.min(sourceWidth, folderMax);
   let candidates = WIDTH_CANDIDATES.filter((w) => w <= maxW);

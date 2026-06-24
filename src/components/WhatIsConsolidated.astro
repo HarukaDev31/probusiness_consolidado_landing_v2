@@ -1,27 +1,31 @@
 ---
-import ResponsiveImage from './ResponsiveImage.astro';
-import { asset } from '../lib/assets';
+import ResponsiveImage from "./ResponsiveImage.astro";
+import { asset } from "../lib/assets";
 
 const steps = [
   {
     num: 1,
-    image: '/images/sections/03-what-is/step-01.png',
-    textHtml: '<span class="font-normal">Varios importadores </span><span class="font-medium">compran y envían su carga a nuestro almacén en China.</span>',
+    image: "/images/sections/03-what-is/step-01.png",
+    textHtml:
+      '<span class="font-normal">Varios importadores </span><span class="font-medium">compran y envían su carga a nuestro almacén en China.</span>',
   },
   {
     num: 2,
-    image: '/images/sections/03-what-is/step-02.png',
-    textHtml: '<span class="font-medium">Recibimos y organizamos toda la mercadería</span><span class="font-normal"> para iniciar la consolidación.</span>',
+    image: "/images/sections/03-what-is/step-02.png",
+    textHtml:
+      '<span class="font-medium">Recibimos y organizamos toda la mercadería</span><span class="font-normal"> para iniciar la consolidación.</span>',
   },
   {
     num: 3,
-    image: '/images/sections/03-what-is/step-03.png',
-    textHtml: '<span class="font-medium">Unificamos las cargas en contenedores</span><span class="font-normal"> y enviamos vía marítima a Perú.</span>',
+    image: "/images/sections/03-what-is/step-03.png",
+    textHtml:
+      '<span class="font-medium">Unificamos las cargas en contenedores</span><span class="font-normal"> y enviamos vía marítima a Perú.</span>',
   },
   {
     num: 4,
-    image: '/images/sections/03-what-is/step-04.png',
-    textHtml: '<span class="font-medium">Recibe tu mercadería lista </span><span class="font-normal">para vender o impulsar tu negocio.</span>',
+    image: "/images/sections/03-what-is/step-04.png",
+    textHtml:
+      '<span class="font-medium">Recibe tu mercadería lista </span><span class="font-normal">para vender o impulsar tu negocio.</span>',
   },
 ];
 ---
@@ -41,14 +45,24 @@ const steps = [
   <div class="site-container what-is__body">
     <header class="what-is__header">
       <div class="what-is__heading-row">
-        <img src={asset('/images/sections/03-what-is/icon-box.svg')} alt="" class="what-is__icon" aria-hidden="true" />
-        <span class="what-is__title font-epilogue font-medium text-black">
-          ¿Qué es <span class="font-semibold text-probusiness-naranja">Carga Consolidada?</span>
+        <img
+          src={asset("/images/sections/03-what-is/icon-box.svg")}
+          alt=""
+          class="what-is__icon"
+          aria-hidden="true"
+        />
+        <span class="what-is__title section-title font-epilogue font-medium text-black">
+          <span class="what-is__title-part what-is__title-que">¿Qué es</span>
+          <span class="what-is__title-part what-is__title-carga font-semibold text-probusiness-naranja">Carga</span>
+          <span class="what-is__title-part what-is__title-consolidada font-semibold text-probusiness-naranja">Consolidada?</span>
         </span>
       </div>
-      <p class="what-is__intro font-epilogue text-black mt-[60px]">
+      <p class="what-is__intro font-epilogue text-black">
         Es un forma inteligente y económica de importar, con la garantía de
-        <span class="badge-pro--filled what-is__pro-badge font-sora font-semibold">PRO</span>
+        <span
+          class="badge-pro--filled what-is__pro-badge font-sora font-semibold"
+          >PRO</span
+        >
         <span class="font-semibold text-probusiness-naranja"> Business:</span>
       </p>
     </header>
@@ -68,7 +82,10 @@ const steps = [
                   aria-hidden="true"
                 />
               </div>
-              <p class="what-is__card-text font-epilogue text-black" set:html={step.textHtml} />
+              <p
+                class="what-is__card-text font-epilogue text-black"
+                set:html={step.textHtml}
+              />
             </div>
           </article>
         ))
@@ -104,7 +121,11 @@ const steps = [
   .what-is__body {
     position: relative;
     z-index: 1;
-    padding-top: clamp(10rem, calc(100vw * 1024 / 1536 * 0.6), calc(1920px * 1024 / 1536 * 0.6));
+    padding-top: clamp(
+      9em,
+      calc(90vw * 1024 / 1536 * 0.6),
+      calc(1920px * 1024 / 1536 * 0.6)
+    );
   }
 
   .what-is__header {
@@ -120,34 +141,68 @@ const steps = [
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.125rem, calc(4 / 3973 * 100vw), 0.25rem);
+    gap: clamp(0.35rem, calc(12 / 3973 * 100vw), 0.75rem);
   }
 
   .what-is__icon {
     width: clamp(3rem, calc(271 / 3973 * 100vw), 10.5rem);
     height: auto;
+    aspect-ratio: 270.775 / 287.874;
+    object-fit: contain;
     flex-shrink: 0;
     margin-right: clamp(-1.25rem, calc(-48 / 3973 * 100vw), -2.75rem);
   }
 
   .what-is__title {
-    font-size: clamp(1.4rem, calc(150 / 3973 * 100vw), 4.52rem);
-    line-height: 1.01;
-    letter-spacing: -0.06em;
-    max-width: 18ch;
     text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .what-is__heading-row {
+      gap: clamp(1rem, calc(40 / 3973 * 100vw), 2rem);
+    }
+
+    .what-is__icon {
+      margin-right: 0;
+    }
+
+    .what-is__title {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      column-gap: 0.28em;
+      row-gap: 0.05em;
+      align-items: baseline;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .what-is__title-que {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .what-is__title-carga {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .what-is__title-consolidada {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
   }
 
   .what-is__intro {
     font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
     line-height: 1.26;
     max-width: 52rem;
+    margin-top: 60px;
   }
 
   .what-is__pro-badge {
     display: inline-flex;
     align-items: center;
-    border-radius: 8px;
+    border-radius: var(--radius-ui);
     font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.36rem);
     padding: 0 0.1em;
     vertical-align: middle;
@@ -156,20 +211,15 @@ const steps = [
 
   .what-is__grid {
     display: grid;
-    gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+    gap: clamp(0.65rem, 3vw, 1.75rem);
     margin-top: clamp(2rem, calc(80 / 3973 * 100vw), 4.5rem);
     padding-top: clamp(1.125rem, calc(40 / 3973 * 100vw), 1.625rem);
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 640px) {
-    .what-is__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   @media (min-width: 1024px) {
     .what-is__grid {
+      gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
@@ -189,7 +239,7 @@ const steps = [
     justify-content: center;
     width: clamp(2.25rem, calc(80 / 3973 * 100vw), 3.25rem);
     height: clamp(2.25rem, calc(80 / 3973 * 100vw), 3.25rem);
-    border-radius: clamp(10px, calc(14 / 3973 * 100vw), 14px);
+    border-radius: var(--radius-ui);
     background: linear-gradient(180deg, #ff540a 0%, #ff6a29 100%);
     border: 0.5px solid #da4307;
     box-shadow: 0 2px 18px rgba(255, 84, 16, 0.55);
@@ -204,7 +254,7 @@ const steps = [
     position: relative;
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    border-radius: var(--radius-ui);
     background: #eceff4;
     padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
     padding-top: clamp(1.5rem, calc(48 / 3973 * 100vw), 2.75rem);
@@ -229,7 +279,6 @@ const steps = [
   }
 
   .what-is__card-text {
-    width: 100%;
     font-size: clamp(0.75rem, calc(65 / 3973 * 100vw), 1.96rem);
     line-height: 0.94;
     letter-spacing: -0.01em;
@@ -237,7 +286,88 @@ const steps = [
     margin-top: auto;
   }
 
+  @media (min-width: 1024px) {
+    .what-is__card-text {
+      width: 100%;
+    }
+  }
+
   .what-is__card-text :global(span) {
     display: inline;
+  }
+
+  @media (max-width: 1023px) {
+    .what-is {
+      padding-bottom: clamp(1.25rem, calc(80 / 3973 * 100vw), 3rem);
+    }
+
+    .what-is__heading-row {
+      width: 92vw;
+      max-width: 92vw;
+      margin-inline: auto;
+      gap: 1rem;
+    }
+
+    .what-is__icon {
+      width: clamp(2.75rem, 14vw, 4rem);
+      height: auto;
+      aspect-ratio: 270.775 / 287.874;
+      object-fit: contain;
+      align-self: center;
+      margin-right: 0;
+    }
+
+    .what-is__title {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      column-gap: 0.3em;
+      row-gap: 0.1em;
+      align-items: baseline;
+      text-align: left;
+    }
+
+    .what-is__title-que {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .what-is__title-carga {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .what-is__title-consolidada {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .what-is__intro {
+      width: 60vw;
+      min-width: 220px;
+      max-width: 80vw;
+      margin-top: 20px;
+    }
+
+    .what-is__card-text {
+      width: 100%;
+      max-width: 100%;
+      margin-inline: 0;
+    }
+
+    .what-is__step-img,
+    .what-is :global(.what-is__step-img) {
+      width: clamp(4.5rem, 34vw, 7rem);
+      height: clamp(4.5rem, 34vw, 7rem);
+    }
+
+    .what-is__card-wrap {
+      padding-left: clamp(0.75rem, 3.5vw, 1rem);
+    }
+
+    .what-is__card {
+      padding: clamp(0.65rem, 2.5vw, 1rem);
+      padding-top: clamp(1.25rem, 4vw, 1.75rem);
+      min-height: clamp(12.8rem, calc(988 / 3973 * 100vw), 30.4rem);
+    }
   }
 </style>

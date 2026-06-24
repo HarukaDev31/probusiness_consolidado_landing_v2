@@ -11,8 +11,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "sync:images": "node scripts/sync-images.mjs",
+    "prepare:cdn": "node scripts/sync-images.mjs && node scripts/optimize-images.mjs",
     "upload:assets": "node scripts/upload-assets.mjs",
-    "deploy:assets": "npm run optimize:images && npm run upload:assets",
+    "upload:assets:dry": "node scripts/upload-assets.mjs --dryrun",
+    "deploy:assets": "npm run prepare:cdn && npm run upload:assets",
     "download:assets": "node scripts/download-figma-assets.mjs"
   },
   "dependencies": {

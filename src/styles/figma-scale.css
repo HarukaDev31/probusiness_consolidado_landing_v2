@@ -5,12 +5,42 @@
 :root {
   --figma-artboard: 3973;
   --figma-cap: 1920px;
+
+  /* Títulos de sección — un solo tamaño por tipo (mobile + desktop vía clamp) */
+  --section-title-size: clamp(1.725rem, calc(160 / 3973 * 100vw), 4.83rem);
+  --section-title-lh: 1.01;
+  --section-title-tracking: -0.06em;
+
+  --section-title-sm-size: clamp(0.95rem, calc(90 / 3973 * 100vw), 2.72rem);
+  --section-title-sm-lh: 1.16;
+  --section-title-sm-tracking: -0.01em;
+
+  --section-title-accent-size: clamp(1.875rem, calc(180 / 3973 * 100vw), 5.44rem);
+  --section-title-accent-lh: 0.88;
+}
+
+.section-title {
+  font-size: var(--section-title-size);
+  line-height: var(--section-title-lh);
+  letter-spacing: var(--section-title-tracking);
+}
+
+.section-title-sm {
+  font-size: var(--section-title-sm-size);
+  line-height: var(--section-title-sm-lh);
+  letter-spacing: var(--section-title-sm-tracking);
+}
+
+.section-title-accent {
+  font-size: var(--section-title-accent-size);
+  line-height: var(--section-title-accent-lh);
+  letter-spacing: var(--section-title-tracking);
 }
 
 .text-f-160 {
-  font-size: clamp(1.5rem, calc(160 / 3973 * 100vw), 4.83rem);
-  line-height: 1.03;
-  letter-spacing: -0.06em;
+  font-size: var(--section-title-size);
+  line-height: var(--section-title-lh);
+  letter-spacing: var(--section-title-tracking);
 }
 
 .text-f-150 {
@@ -92,11 +122,11 @@
 }
 
 .site-section--lg {
-  padding-block: clamp(3rem, calc(200 / 3973 * 100vw), 8rem);
+  padding-block: clamp(2rem, calc(120 / 3973 * 100vw), 5rem);
 }
 
 .radius-figma {
-  border-radius: clamp(12px, calc(20 / 3973 * 100vw), 20px);
+  border-radius: var(--radius-ui);
 }
 
 .figma-icon-box {
@@ -116,7 +146,7 @@
   justify-content: center;
   min-width: clamp(3.5rem, calc(237 / 3973 * 100vw), 9rem);
   min-height: clamp(1.75rem, calc(128 / 3973 * 100vw), 5rem);
-  border-radius: clamp(12px, calc(20 / 3973 * 100vw), 20px);
+  border-radius: var(--radius-ui);
   background: #000;
   padding-inline: clamp(0.5rem, calc(20 / 3973 * 100vw), 1.25rem);
   font-family: var(--font-sora);

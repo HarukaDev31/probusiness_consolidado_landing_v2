@@ -10,11 +10,8 @@ type ManifestEntry = {
 
 const manifest = manifestData as Record<string, ManifestEntry>;
 
-const useLocalAssets = import.meta.env.DEV;
-
 export function asset(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
-  if (useLocalAssets) return normalized;
   return `${CDN_BASE}${normalized}`;
 }
 
@@ -23,7 +20,7 @@ export function stripExtension(path: string): string {
 }
 
 export function optimizedImage(path: string): string {
-  return asset(`${stripExtension(path)}.png`);
+  return asset(`${stripExtension(path)}.webp`);
 }
 
 export type ResponsiveImageData = {

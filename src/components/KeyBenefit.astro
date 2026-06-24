@@ -6,7 +6,7 @@ import ResponsiveImage from './ResponsiveImage.astro';
   <div class="site-container">
     <div class="key-benefit card-surface--gray grid items-stretch overflow-hidden border border-[#9c9c9c]">
       <div class="key-benefit__copy">
-        <h2 class="key-benefit__title font-epilogue font-semibold text-black">Beneficio Clave</h2>
+        <h2 class="key-benefit__title section-title-sm font-epilogue font-semibold text-black">Beneficio Clave</h2>
         <p class="key-benefit__body font-epilogue text-black">
           <span class="font-semibold text-probusiness-naranja">Pagas solo por el espacio que usa tu carga.</span>
           {' '}Mas ahorro para ti, más oportunidades para tu negocio
@@ -26,35 +26,40 @@ import ResponsiveImage from './ResponsiveImage.astro';
 </section>
 
 <style>
+  @media (max-width: 1023px) {
+    section.site-section {
+      padding-block: clamp(1.25rem, calc(80 / 3973 * 100vw), 3rem);
+    }
+  }
+
   .key-benefit {
     grid-template-columns: 1fr;
     gap: 0;
     min-height: clamp(16rem, calc(781 / 3973 * 100vw), 32rem);
-    border-radius: 20px;
-    padding:4em 3em 0 3em;
+    border-radius: var(--radius-ui);
+    padding: 2.03em 0.86em 0 0.86em;
   }
 
   @media (min-width: 1024px) {
     .key-benefit {
       grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+      padding: 4em 3em 0 3em;
     }
   }
 
   .key-benefit__copy {
-    padding-inline: clamp(0.5rem, calc(16 / 3973 * 100vw), 1.25rem);
-    padding-block: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-top: 1em;
-    padding:0 4em 0 2em;
-
+    padding: 0.5em;
+    margin-top: 0;
   }
 
-  .key-benefit__title {
-    font-size: clamp(1.25rem, calc(90 / 3973 * 100vw), 2.72rem);
-    line-height: 1.16;
-    letter-spacing: -0.01em;
+  @media (min-width: 1024px) {
+    .key-benefit__copy {
+      padding: 0 4em 0 2em;
+      margin-top: 1em;
+    }
   }
 
   .key-benefit__body {

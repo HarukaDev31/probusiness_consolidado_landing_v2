@@ -14,7 +14,7 @@ const footerStats = [
   <div class="site-container footer__inner">
     <a href="#inicio" class="footer-brand" aria-label="ProBusiness — Inicio">
       <ResponsiveImage
-        src="/images/sections/12-footer/logo-large.png"
+        src="/images/sections/12-footer/logo-large.svg"
         alt="probusiness"
         class="footer-brand__logo"
         loading="lazy"
@@ -28,7 +28,7 @@ const footerStats = [
           <div class="footer-stat">
             {stat.type === 'ccl' ? (
               <ResponsiveImage
-                src="/images/sections/12-footer/logo-ccl.png"
+                src="/images/sections/12-footer/logo-ccl.svg"
                 alt="CCL"
                 class="footer-stat__logo footer-stat__logo--ccl"
                 loading="lazy"
@@ -69,8 +69,7 @@ const footerStats = [
     width: auto;
     max-width: min(100%, calc(782 / 3973 * 100vw));
     object-fit: contain;
-    filter: brightness(0) invert(1);
-  }
+    }
 
   .footer-stats {
     display: grid;
@@ -127,7 +126,7 @@ const footerStats = [
 
   .footer-stat__value {
     margin: 0;
-    font-size: clamp(1.75rem, calc(128 / 3973 * 100vw), 3.86rem);
+    font-size: clamp(1.5rem, calc(120 / 3973 * 100vw), 3.5rem);
     font-weight: 500;
     line-height: 0.97;
     letter-spacing: -0.06em;
@@ -140,7 +139,7 @@ const footerStats = [
 
   .footer-stat__label {
     margin: 0;
-    font-size: clamp(0.65rem, calc(70 / 3973 * 100vw), 2.11rem);
+    font-size: clamp(0.55rem, calc(55 / 3973 * 100vw), 1.51rem);
     font-weight: 400;
     line-height: 0.98;
     letter-spacing: -0.01em;
@@ -155,5 +154,42 @@ const footerStats = [
     line-height: 0.98;
     letter-spacing: -0.01em;
     color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 1023px) {
+    .footer__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        'stats stats'
+        'brand copy';
+      column-gap: clamp(0.75rem, 3.5vw, 1.25rem);
+      row-gap: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .footer-brand {
+      grid-area: brand;
+      align-self: end;
+    }
+
+    .footer-brand__logo,
+    .footer-brand :global(.footer-brand__logo) {
+      height: clamp(2.5rem, 12vw, 3.5rem);
+      max-width: 100%;
+    }
+
+    .footer-stats {
+      grid-area: stats;
+    }
+
+    .footer-stat__label {
+      font-size: clamp(0.8rem, 3.6vw, 1rem);
+      max-width: none;
+    }
+
+    .footer-copy {
+      grid-area: copy;
+      text-align: left;
+      align-self: end;
+    }
   }
 </style>

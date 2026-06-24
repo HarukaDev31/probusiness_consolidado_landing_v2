@@ -1,141 +1,184 @@
 ---
-import ResponsiveImage from './ResponsiveImage.astro';
-import { asset } from '../lib/assets';
+import ResponsiveImage from "./ResponsiveImage.astro";
+import QuoteCta from "./QuoteCta.astro";
 
 const guarantees = [
-  { label: 'Caída en canal rojo' },
-  { label: 'Aforo en Aduana' },
+  { label: "Caída en canal rojo" },
+  { label: "Aforo en Aduana" },
 ];
 ---
 
 <section class="section-white site-section">
   <div class="site-container">
-    <div class="warranty">
-      <ResponsiveImage
-        src="/images/sections/06-warranty/shield.png"
-        alt="Escudo de garantía ProBusiness"
-        class="warranty__shield"
-        sizes="(max-width: 1023px) 40vw, 280px"
-      />
+    <div class="warranty-wrap">
+      <div class="warranty__header">
+        <div class="warranty__media">
+          <ResponsiveImage
+            src="/images/sections/06-warranty/shield.png"
+            alt="Escudo de garantía ProBusiness"
+            class="warranty__shield"
+            sizes="(max-width: 1023px) 28vw, 280px"
+          />
+        </div>
 
-      <div class="warranty__content">
-        <h2 class="warranty__title font-epilogue">
-          <span class="warranty__title-line warranty__title-line--orange font-semibold">Garantía</span>
-          <span class="warranty__title-line warranty__title-line--black font-semibold">probusiness</span>
-        </h2>
+        <div class="warranty__copy">
+          <div class="warranty__titles">
+            <div
+              class="warranty__line warranty__line--orange section-title font-epilogue font-semibold"
+            >
+              Garantía
+            </div>
+            <div
+              class="warranty__line warranty__line--black section-title-accent font-epilogue font-semibold"
+            >
+              probusiness
+            </div>
+          </div>
 
-        <ul class="warranty__list">
-          {
-            guarantees.map((item) => (
-              <li class="warranty__item">
-                <img src={asset('/images/sections/06-warranty/icon-check.svg')} alt="" class="warranty__check" aria-hidden="true" />
-                <span class="warranty__label font-epilogue font-medium text-black">{item.label}</span>
-              </li>
-            ))
-          }
-        </ul>
+          <p class="warranty__coverage font-sora font-semibold text-f-65">
+            Cobertura en:
+          </p>
+        </div>
+      </div>
+
+      <ul class="warranty__list">
+        {
+          guarantees.map((item, index) => {
+            const clipId = `warranty-check-clip-${index}`;
+
+            return (
+            <li class="warranty__item">
+              <svg
+                class="warranty__check"
+                viewBox="0 0 185 185"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <g clip-path={`url(#${clipId})`}>
+                  <g transform="matrix(0 0.0780469 -0.0780469 0 92.4942 92.5)">
+                    <foreignObject x="-1205" y="-1205" width="2410.01" height="2410.01">
+                      <div
+                        style="background:conic-gradient(from 90deg,rgba(50, 221, 128, 1) 0deg,rgba(24, 128, 72, 1) 337.5deg,rgba(50, 221, 128, 1) 360deg);height:100%;width:100%;opacity:1"
+                      />
+                    </foreignObject>
+                  </g>
+                </g>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M92.5 14.4531C77.0635 14.452 61.9735 19.0284 49.138 27.6035C36.3025 36.1787 26.2981 48.3675 20.39 62.6285C14.4819 76.8895 12.9355 92.5823 15.9462 107.722C18.9569 122.862 26.3896 136.769 37.3043 147.685C48.219 158.601 62.1255 166.035 77.2652 169.047C92.4049 172.059 108.098 170.514 122.359 164.607C136.621 158.7 148.811 148.697 157.387 135.862C165.963 123.027 170.541 107.938 170.541 92.5011C170.531 71.8059 162.305 51.9613 147.672 37.3269C133.039 22.6926 113.195 14.4655 92.5 14.4531ZM59.7899 100.667L76.1451 117.023C76.9489 117.831 77.9041 118.471 78.9561 118.908C80.008 119.345 81.1359 119.57 82.275 119.57C83.4141 119.57 84.542 119.345 85.5939 118.908C86.6459 118.471 87.6012 117.831 88.4049 117.023L125.21 80.24C126.836 78.6142 127.749 76.409 127.749 74.1097C127.749 71.8103 126.836 69.6051 125.21 67.9792C123.584 66.3533 121.379 65.4398 119.08 65.4397C116.781 65.4397 114.575 66.353 112.949 67.9788L82.2867 98.6438L72.0502 88.4057C70.4242 86.7799 68.2191 85.8666 65.9197 85.8667C63.6204 85.8668 61.4153 86.7803 59.7895 88.4062C58.1637 90.0321 57.2503 92.2373 57.2504 94.5366C57.2505 96.836 58.164 99.0411 59.7899 100.667Z"
+                />
+                <defs>
+                  <clipPath id={clipId}>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M92.5 14.4531C77.0635 14.452 61.9735 19.0284 49.138 27.6035C36.3025 36.1787 26.2981 48.3675 20.39 62.6285C14.4819 76.8895 12.9355 92.5823 15.9462 107.722C18.9569 122.862 26.3896 136.769 37.3043 147.685C48.219 158.601 62.1255 166.035 77.2652 169.047C92.4049 172.059 108.098 170.514 122.359 164.607C136.621 158.7 148.811 148.697 157.387 135.862C165.963 123.027 170.541 107.938 170.541 92.5011C170.531 71.8059 162.305 51.9613 147.672 37.3269C133.039 22.6926 113.195 14.4655 92.5 14.4531ZM59.7899 100.667L76.1451 117.023C76.9489 117.831 77.9041 118.471 78.9561 118.908C80.008 119.345 81.1359 119.57 82.275 119.57C83.4141 119.57 84.542 119.345 85.5939 118.908C86.6459 118.471 87.6012 117.831 88.4049 117.023L125.21 80.24C126.836 78.6142 127.749 76.409 127.749 74.1097C127.749 71.8103 126.836 69.6051 125.21 67.9792C123.584 66.3533 121.379 65.4398 119.08 65.4397C116.781 65.4397 114.575 66.353 112.949 67.9788L82.2867 98.6438L72.0502 88.4057C70.4242 86.7799 68.2191 85.8666 65.9197 85.8667C63.6204 85.8668 61.4153 86.7803 59.7895 88.4062C58.1637 90.0321 57.2503 92.2373 57.2504 94.5366C57.2505 96.836 58.164 99.0411 59.7899 100.667Z"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              <span class="warranty__label font-epilogue font-semibold text-black">
+                {item.label}
+              </span>
+            </li>
+            );
+          })
+        }
+      </ul>
+
+      <div class="warranty__cta">
+        <QuoteCta />
+        <p class="warranty__cta-text font-epilogue text-black">
+          Asesoría rápida, clara y sin compromiso
+        </p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .warranty {
+  .warranty-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 3rem);
-    max-width: 56rem;
-    margin-inline: auto;
+    width: 100%;
   }
 
-  @media (min-width: 1024px) {
-    .warranty {
-      flex-direction: row;
-      align-items: center;
-      max-width: none;
-      gap: clamp(2rem, calc(80 / 3973 * 100vw), 5rem);
-    }
+  .warranty__header {
+    display: grid;
+    grid-template-columns: auto minmax(0, max-content);
+    align-items: center;
+    column-gap: clamp(0.5rem, calc(35 / 3973 * 100vw), 1.5rem);
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .warranty__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .warranty__shield,
-  .warranty :global(.warranty__shield) {
+  .warranty-wrap :global(.warranty__shield) {
     width: clamp(8rem, calc(551 / 3973 * 100vw), 18rem);
     height: auto;
-    flex-shrink: 0;
     object-fit: contain;
   }
 
-  .warranty__content {
-    text-align: center;
+  .warranty__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  @media (min-width: 1024px) {
-    .warranty__content {
-      text-align: left;
-    }
+  .warranty__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  .warranty__title {
-    margin: 0;
-    line-height: 0.88;
-    letter-spacing: -0.06em;
+  .warranty__line {
+    text-align: left;
   }
 
-  .warranty__title-line {
-    display: block;
-  }
-
-  .warranty__title-line--orange {
-    font-size: clamp(1.5rem, calc(160 / 3973 * 100vw), 4.83rem);
+  .warranty__line--orange {
     color: #ff5410;
   }
 
-  .warranty__title-line--black {
-    font-size: clamp(1.75rem, calc(180 / 3973 * 100vw), 5.44rem);
+  .warranty__line--black {
     color: #000;
-    letter-spacing: -0.06em;
+  }
+
+  .warranty__coverage {
+    margin: clamp(1rem, calc(50 / 3973 * 100vw), 3.125rem) 0 0;
+    color: #000;
+    text-align: left;
   }
 
   .warranty__list {
     display: flex;
-    flex-direction: column;
-    gap: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
-    margin: clamp(1.25rem, calc(48 / 3973 * 100vw), 2.5rem) 0 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, calc(257 / 3973 * 100vw), 5rem);
+    width: 100%;
+    margin: clamp(1.5rem, calc(122 / 3973 * 100vw), 3rem) 0 0;
     padding: 0;
     list-style: none;
-  }
-
-  @media (min-width: 640px) {
-    .warranty__list {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: clamp(2rem, calc(64 / 3973 * 100vw), 5rem);
-    }
-
-    .warranty__content {
-      text-align: center;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .warranty__list {
-      justify-content: flex-start;
-    }
-
-    .warranty__content {
-      text-align: left;
-    }
   }
 
   .warranty__item {
     display: flex;
     align-items: center;
-    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
+    gap: clamp(0.75rem, calc(32 / 3973 * 100vw), 1.5rem);
   }
 
   .warranty__check {
+    display: block;
     width: clamp(2.5rem, calc(185 / 3973 * 100vw), 4.5rem);
     height: clamp(2.5rem, calc(185 / 3973 * 100vw), 4.5rem);
     flex-shrink: 0;
@@ -144,5 +187,114 @@ const guarantees = [
   .warranty__label {
     font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
     line-height: 1.1;
+  }
+
+  .warranty__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, calc(1474 / 3973 * 100vw));
+    padding-top: clamp(2.5rem, calc(287 / 3973 * 100vw), 5.5rem);
+    text-align: center;
+  }
+
+  .warranty__cta :global(.quote-cta) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .warranty__cta-text {
+    margin: clamp(1rem, calc(42 / 3973 * 100vw), 2rem) 0 0;
+    font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
+    line-height: 1.26;
+  }
+
+  @media (max-width: 1023px) {
+    .warranty-wrap {
+      width: 90%;
+      max-width: 90%;
+      margin-inline: auto;
+      align-items: stretch;
+    }
+
+    .warranty__header {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      justify-items: start;
+      width: 100%;
+      column-gap: clamp(0.65rem, calc(28 / 3973 * 100vw), 1.25rem);
+    }
+
+    .warranty__shield,
+    .warranty-wrap :global(.warranty__shield) {
+      width: clamp(5.5rem, calc(220 / 3973 * 100vw), 8.5rem);
+    }
+
+    .warranty__copy {
+      align-items: flex-start;
+      min-width: 0;
+    }
+
+    .warranty__coverage {
+      margin-top: clamp(0.65rem, calc(24 / 3973 * 100vw), 1.25rem);
+    }
+
+    .warranty__list {
+      flex-direction: column;
+      align-items: stretch;
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      justify-content: center;
+      gap: clamp(1rem, calc(48 / 3973 * 100vw), 1.75rem);
+      margin-top: clamp(1.25rem, calc(64 / 3973 * 100vw), 2rem);
+    }
+
+    .warranty__item {
+      display: grid;
+      grid-template-columns: clamp(2.25rem, calc(72 / 3973 * 100vw), 3.25rem) 1fr;
+      align-items: center;
+      width: 100%;
+      gap: clamp(0.65rem, calc(24 / 3973 * 100vw), 1rem);
+    }
+
+    .warranty__check {
+      width: clamp(2.25rem, calc(72 / 3973 * 100vw), 3.25rem);
+      height: clamp(2.25rem, calc(72 / 3973 * 100vw), 3.25rem);
+    }
+
+    .warranty__label {
+      font-size: clamp(0.95rem, calc(52 / 3973 * 100vw), 1.35rem);
+    }
+
+    .warranty__cta {
+      width: 100%;
+      padding-top: clamp(1.75rem, calc(96 / 3973 * 100vw), 3rem);
+    }
+
+    .warranty__cta :global(.quote-cta) {
+      width: 90%;
+      max-width: 90%;
+      border-radius: var(--radius-ui);
+      gap: 0.75rem;
+      margin-inline: auto;
+      font-size: clamp(1rem, calc(52 / 3973 * 100vw), 1.35rem);
+      padding-block: clamp(0.9rem, calc(36 / 3973 * 100vw), 1.25rem);
+      box-shadow: 0 4px 20px 6px rgba(255, 84, 16, 0.42);
+    }
+
+    .warranty__cta :global(.quote-cta:hover) {
+      box-shadow: 0 6px 24px 8px rgba(255, 84, 16, 0.5);
+    }
+
+    .warranty__cta :global(.quote-cta__icon) {
+      display: block;
+      width: clamp(1.5rem, calc(48 / 3973 * 100vw), 2rem);
+      height: clamp(1.5rem, calc(48 / 3973 * 100vw), 2rem);
+    }
+
+    .warranty__cta-text {
+      font-size: clamp(0.8rem, calc(40 / 3973 * 100vw), 1.1rem);
+    }
   }
 </style>

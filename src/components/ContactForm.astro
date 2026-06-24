@@ -1,9 +1,15 @@
 ---
-import ResponsiveImage from './ResponsiveImage.astro';
-import { asset } from '../lib/assets';
+import { asset, responsiveImage } from '../lib/assets';
 import { leadFormConfig } from '../lib/leadForm';
 
 const { apiUrl, formToken, campaignCode, graciasPath } = leadFormConfig;
+
+const contactPhotoDesktop = responsiveImage('/images/sections/10-contact/photo.png', {
+  sizes: '(max-width: 1023px) 0px, 42vw',
+});
+const contactPhotoMobile = responsiveImage('/images/sections/10-contact/photo-mobile.png', {
+  sizes: '(max-width: 1023px) 100vw, 0px',
+});
 
 const trustItems = [
   'Respaldado por la CCL',
@@ -15,170 +21,328 @@ const trustItems = [
 
 <section id="contacto" class="contact section-white site-section--lg">
   <div class="site-container">
-    <div class="contact__panel radius-figma overflow-hidden border-2 border-[#fa4700] bg-white">
-      <div class="contact__grid">
-        <div class="contact__visual">
-          <ResponsiveImage
-            src="/images/sections/10-contact/photo.png"
-            alt="Asesor ProBusiness"
-            class="contact__photo"
-            sizes="(max-width: 1023px) 100vw, 42vw"
-          />
-          <img src={asset('/images/sections/10-contact/puntos.svg')} alt="" class="contact__puntos" aria-hidden="true" />
-        </div>
+    <div class="contact__shell">
+      <div class="contact__panel overflow-hidden">
+        <div class="contact__body">
+          <div class="contact__grid">
+          <div class="contact__visual">
+            <picture class="contact__picture">
+              <source
+                media="(max-width: 1023px)"
+                type="image/webp"
+                srcset={contactPhotoMobile.webpSrcset}
+                sizes={contactPhotoMobile.sizes}
+              />
+              <source
+                type="image/webp"
+                srcset={contactPhotoDesktop.webpSrcset}
+                sizes={contactPhotoDesktop.sizes}
+              />
+              <img
+                src={contactPhotoDesktop.fallback}
+                alt="Asesor ProBusiness"
+                class="contact__photo"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="contact__visual-fade" aria-hidden="true"></div>
+          </div>
 
-        <div class="contact__form-wrap">
-          <h2 class="contact__title font-epilogue font-medium text-black">Cuéntanos si estás listo para importar</h2>
-          <p class="contact__subtitle font-epilogue text-black/85">Estamos listos para traer tu carga sin complicaciones.</p>
+          <div class="contact__copy">
+            <h2 class="contact__title section-title font-epilogue font-medium text-black">
+              Cuéntanos si 
+              <br />
+              estás{' '}
+              <span class="contact__title-accent font-semibold text-probusiness-naranja">
+                listo para importar
+              </span>
+            </h2>
+            <p class="contact__subtitle font-epilogue text-black">
+              Estamos listos para traer tu carga sin complicaciones.
+            </p>
+          </div>
 
-          <form
-            id="contact-form"
-            class="contact__form"
-            novalidate
-            data-api-url={apiUrl}
-            data-form-token={formToken}
-            data-campaign-code={campaignCode}
-            data-gracias-path={graciasPath}
-          >
-            <div class="contact__field" data-field="nombre">
-              <label for="nombre" class="contact__label">Nombre Completo</label>
-              <input type="text" id="nombre" name="nombre" placeholder="e.g José Gutiérrez" class="contact__input" required />
-            </div>
-
-            <div class="contact__field" data-field="whatsapp">
-              <label for="whatsapp" class="contact__label">Número de WhatsApp</label>
-              <input type="tel" id="whatsapp" name="whatsapp" placeholder="999 999 999" class="contact__input" required />
-            </div>
-
-            <div class="contact__field" data-field="proveedor_china">
-              <label for="proveedor" class="contact__label">¿Ya tienes tu proveedor en China?</label>
-              <div class="contact__select-wrap">
-                <select id="proveedor" name="proveedor_china" class="contact__input contact__select" required>
-                  <option value="" disabled selected>Selecciona una opción</option>
-                  <option value="si">Sí, ya tengo proveedor</option>
-                  <option value="no">No, necesito ayuda</option>
-                  <option value="buscando">Estoy buscando proveedor</option>
-                </select>
-                <img src={asset('/images/sections/10-contact/chevron.svg')} alt="" class="contact__chevron" aria-hidden="true" />
+          <div class="contact__form-wrap">
+            <form
+              id="contact-form"
+              class="contact__form"
+              novalidate
+              data-api-url={apiUrl}
+              data-form-token={formToken}
+              data-campaign-code={campaignCode}
+              data-gracias-path={graciasPath}
+            >
+              <div class="contact__field" data-field="nombre">
+                <label for="nombre" class="contact__label">Nombre Completo</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  placeholder="e.g José Gutiérrez"
+                  class="contact__input"
+                  required
+                />
               </div>
-            </div>
 
-            <button type="submit" class="contact__submit btn-primary font-epilogue font-bold text-white">
-              Quiero importar
-            </button>
-            <p id="form-feedback" class="contact__feedback font-epilogue"></p>
-          </form>
+              <div class="contact__field" data-field="whatsapp">
+                <label for="whatsapp" class="contact__label">Número de WhatsApp</label>
+                <input
+                  type="tel"
+                  id="whatsapp"
+                  name="whatsapp"
+                  placeholder="999 999 999"
+                  class="contact__input"
+                  required
+                />
+              </div>
 
-          <ul class="contact__trust">
-            {
-              trustItems.map((item) => (
-                <li class="contact__trust-item font-epilogue">
-                  <img src={asset('/images/sections/10-contact/icon-check.svg')} alt="" class="contact__trust-icon" aria-hidden="true" />
-                  {item}
-                </li>
-              ))
-            }
-          </ul>
+              <div class="contact__field" data-field="proveedor_china">
+                <label for="proveedor" class="contact__label">¿Ya tienes tu proveedor en China?</label>
+                <div class="contact__select-wrap">
+                  <select id="proveedor" name="proveedor_china" class="contact__input contact__select" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="si">Sí, ya tengo proveedor</option>
+                    <option value="no">No, necesito ayuda</option>
+                    <option value="buscando">Estoy buscando proveedor</option>
+                  </select>
+                  <span class="contact__chevron" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <button type="submit" class="contact__submit btn-primary font-epilogue font-bold text-white">
+                Quiero importar
+              </button>
+              <p id="form-feedback" class="contact__feedback font-epilogue"></p>
+            </form>
+          </div>
+          </div>
         </div>
       </div>
+
+      <ul class="contact__trust">
+        {
+          trustItems.map((item) => (
+            <li class="contact__trust-item font-epilogue">
+              <img
+                src={asset('/images/sections/10-contact/icon-check.svg')}
+                alt=""
+                class="contact__trust-icon"
+                aria-hidden="true"
+              />
+              {item}
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </section>
 
 <style>
+  .contact {
+    background: #fff;
+  }
+
+  .contact__shell {
+    width: min(100%, 100%);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #fa4700;
+    border-radius: var(--radius-ui);
+    background: linear-gradient(180deg, #ff5410 0%, #ff6a29 100%);
+    padding: clamp(1.25rem, calc(56 / 3973 * 100vw), 3.5rem)
+      clamp(1rem, calc(40 / 3973 * 100vw), 2.5rem)
+      clamp(1.5rem, calc(72 / 3973 * 100vw), 4rem);
+  }
+
+  @media (max-width: 767px) {
+    .contact__shell {
+      width: 100%;
+    }
+  }
+
+  .contact__panel {
+    width: min(100%, 95%);
+    border: 1px solid rgba(250, 71, 0, 0.35);
+    border-radius: var(--radius-ui);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    background: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .contact__panel {
+      width: 100%;
+    }
+  }
+
+  .contact__body {
+    background: #fff;
+    padding-bottom: clamp(2rem, calc(120 / 3973 * 100vw), 5rem);
+  }
+
+  /* Figma 2030:12 — foto 1374×1134 | form ~1565px | copy bajo foto */
   .contact__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
   }
 
   @media (min-width: 1024px) {
     .contact__grid {
-      grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+      grid-template-columns: minmax(0, 43.75%) minmax(0, 56.25%);
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(0.25rem, calc(20 / 3973 * 100vw), 0.75rem);
     }
   }
 
   .contact__visual {
     position: relative;
-    display: none;
-    min-height: clamp(20rem, calc(1134 / 3973 * 100vw), 36rem);
-    background: #f5f5f5;
+    grid-column: 1;
+    grid-row: 1;
+    height: clamp(12rem, calc(1134 / 3973 * 100vw), 28.5rem);
+    overflow: hidden;
+    border-radius: var(--radius-ui) 0 0 0;
   }
 
-  @media (min-width: 1024px) {
-    .contact__visual {
-      display: block;
-    }
+  .contact__picture {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
   }
 
   .contact__photo,
   .contact__visual :global(.contact__photo) {
     position: absolute;
     inset: 0;
-    width: 122%;
-    height: 124%;
-    left: -16%;
-    top: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center top;
   }
 
-  .contact__puntos {
+  @media (min-width: 1024px) {
+    .contact__photo,
+    .contact__visual :global(.contact__photo) {
+      width: 122.48%;
+      height: 124.39%;
+      left: -15.9%;
+      top: 0.02%;
+      object-position: top center;
+    }
+  }
+
+  .contact__visual-fade {
     position: absolute;
+    inset-inline: 0;
     bottom: 0;
-    right: 0;
-    width: 66%;
-    opacity: 0.4;
+    height: 42%;
+    z-index: 1;
     pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 90%);
   }
 
-  .contact__form-wrap {
-    padding: clamp(1.25rem, calc(48 / 3973 * 100vw), 3rem);
+  .contact__copy {
+    grid-column: 1;
+    grid-row: 2;
+    padding: clamp(0.5rem, calc(28 / 3973 * 100vw), 1.25rem)
+      clamp(1rem, calc(180 / 3973 * 100vw), 4.5rem)
+      clamp(1.25rem, calc(48 / 3973 * 100vw), 2.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    .contact__copy {
+      align-self: start;
+      padding-top: clamp(0.35rem, calc(16 / 3973 * 100vw), 1rem);
+    }
   }
 
   .contact__title {
-    font-size: clamp(1.15rem, calc(110 / 3973 * 100vw), 3.3rem);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    max-width: 16ch;
+    max-width: 12ch;
+  }
+
+  .contact__title-accent {
+    display: inline;
   }
 
   .contact__subtitle {
-    margin-top: clamp(0.5rem, calc(16 / 3973 * 100vw), 1rem);
-    font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
-    line-height: 1.35;
-    max-width: 24ch;
+    margin-top: clamp(0.5rem, calc(20 / 3973 * 100vw), 1.25rem);
+    font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.15rem);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    max-width: 22ch;
+  }
+
+  .contact__form-wrap {
+    grid-column: 1;
+    grid-row: 3;
+    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem)
+      clamp(1.75rem, calc(96 / 3973 * 100vw), 5rem)
+      clamp(1rem, calc(32 / 3973 * 100vw), 2rem)
+      clamp(1rem, calc(48 / 3973 * 100vw), 3rem);
+  }
+
+  @media (min-width: 1024px) {
+    .contact__form-wrap {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: stretch;
+      padding-top: clamp(1.5rem, calc(319 / 3973 * 100vw), 5rem);
+      padding-right: clamp(2rem, calc(140 / 3973 * 100vw), 6rem);
+      padding-bottom: clamp(1rem, calc(40 / 3973 * 100vw), 2.5rem);
+      padding-left: clamp(0.75rem, calc(32 / 3973 * 100vw), 2rem);
+    }
   }
 
   .contact__form {
-    margin-top: clamp(1.25rem, calc(40 / 3973 * 100vw), 2rem);
     display: flex;
     flex-direction: column;
-    gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
+    gap: clamp(1.25rem, calc(52 / 3973 * 100vw), 2.25rem);
+  }
+
+  @media (min-width: 1024px) {
+    .contact__form {
+      gap: clamp(1.5rem, calc(64 / 3973 * 100vw), 2.75rem);
+    }
   }
 
   .contact__label {
     display: block;
     font-family: var(--font-epilogue);
-    font-size: clamp(0.75rem, calc(40 / 3973 * 100vw), 1.21rem);
-    font-weight: 500;
+    font-size: clamp(0.8125rem, calc(78 / 3973 * 100vw), 2.15rem);
+    font-weight: 600;
+    line-height: 1.26;
     color: #000;
-    margin-bottom: 0.35rem;
+    margin-bottom: clamp(0.35rem, calc(12 / 3973 * 100vw), 0.75rem);
   }
 
   .contact__input {
     width: 100%;
-    border-radius: clamp(10px, calc(12 / 3973 * 100vw), 12px);
-    border: 1px solid #ccc;
-    background: #fff;
-    padding: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.25rem) clamp(0.875rem, calc(28 / 3973 * 100vw), 1.5rem);
+    min-height: clamp(2.75rem, calc(224 / 3973 * 100vw), 5.5rem);
+    border-radius: var(--radius-ui);
+    border: 1px solid #9c9c9c;
+    background: #f6f6f6;
+    padding: clamp(0.65rem, calc(20 / 3973 * 100vw), 1.25rem)
+      clamp(0.875rem, calc(28 / 3973 * 100vw), 1.5rem);
     font-family: var(--font-epilogue);
-    font-size: clamp(0.875rem, calc(48 / 3973 * 100vw), 1.45rem);
+    font-size: clamp(0.875rem, calc(78 / 3973 * 100vw), 2.15rem);
+    line-height: 1.26;
     color: #000;
     outline: none;
   }
 
+  .contact__input::placeholder {
+    color: #9c9c9c;
+  }
+
   .contact__input:focus {
     border-color: var(--color-probusiness-naranja);
+    background: #fff;
   }
 
   .contact__select-wrap {
@@ -187,20 +351,30 @@ const trustItems = [
 
   .contact__select {
     appearance: none;
-    padding-right: 2.5rem;
+    padding-right: 2.75rem;
+    color: #9c9c9c;
+  }
+
+  .contact__select:valid {
+    color: #000;
   }
 
   .contact__chevron {
     position: absolute;
-    right: 1rem;
+    right: clamp(0.875rem, calc(32 / 3973 * 100vw), 1.35rem);
     top: 50%;
-    width: clamp(0.75rem, calc(32 / 3973 * 100vw), 1.25rem);
-    transform: translateY(-50%);
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid #9c9c9c;
+    border-bottom: 2px solid #9c9c9c;
+    transform: translateY(-65%) rotate(45deg);
     pointer-events: none;
   }
 
   .contact__submit {
     width: 100%;
+    margin-top: clamp(0.5rem, calc(20 / 3973 * 100vw), 1rem);
+    border-radius: var(--radius-ui);
     font-size: clamp(1rem, calc(96 / 3973 * 100vw), 2.9rem);
     line-height: 1.26;
     padding-block: clamp(0.85rem, calc(44 / 3973 * 100vw), 1.75rem);
@@ -215,30 +389,88 @@ const trustItems = [
 
   .contact__trust {
     display: grid;
-    gap: 0.65rem;
-    margin-top: clamp(1.25rem, calc(40 / 3973 * 100vw), 2rem);
-    padding: 0;
+    gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.25rem);
+    width: 100%;
+    margin: clamp(1.75rem, calc(64 / 3973 * 100vw), 3.5rem) 0 0;
+    padding: 0 clamp(0.5rem, calc(24 / 3973 * 100vw), 1.5rem);
     list-style: none;
+    background: transparent;
   }
 
   @media (min-width: 640px) {
     .contact__trust {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(2rem, calc(120 / 3973 * 100vw), 6rem);
+      row-gap: clamp(0.75rem, calc(28 / 3973 * 100vw), 1.5rem);
     }
   }
 
   .contact__trust-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: clamp(0.75rem, calc(40 / 3973 * 100vw), 1.21rem);
-    color: #000;
+    gap: clamp(0.5rem, calc(16 / 3973 * 100vw), 0.75rem);
+    font-size: clamp(0.8125rem, calc(78 / 3973 * 100vw), 2.15rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    color: #fff;
+    justify-content: center;
   }
 
   .contact__trust-icon {
-    width: clamp(1rem, calc(40 / 3973 * 100vw), 1.5rem);
-    height: clamp(1rem, calc(40 / 3973 * 100vw), 1.5rem);
+    width: clamp(1.125rem, calc(40 / 3973 * 100vw), 1.5rem);
+    height: clamp(1.125rem, calc(40 / 3973 * 100vw), 1.5rem);
     flex-shrink: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .contact__visual {
+      height: clamp(15rem, 62vw, 18.5rem);
+    }
+
+    .contact__visual-fade {
+      height: 42%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 90%);
+    }
+
+    .contact__title {
+      max-width: none;
+    }
+
+    .contact__subtitle {
+      font-size: clamp(1.05rem, 4.5vw, 1.4rem);
+      max-width: none;
+    }
+
+    .contact__label {
+      font-size: clamp(0.95rem, 4.1vw, 1.2rem);
+    }
+
+    .contact__input {
+      font-size: clamp(1rem, 4.1vw, 1.2rem);
+    }
+
+    .contact__submit {
+      font-size: clamp(1.15rem, 5vw, 1.5rem);
+      box-shadow: 0 4px 20px 6px rgba(255, 84, 16, 0.42);
+    }
+
+    .contact__submit:hover {
+      box-shadow: 0 6px 24px 8px rgba(255, 84, 16, 0.5);
+    }
+
+    .contact__feedback {
+      font-size: 0.95rem;
+    }
+
+    .contact__trust-item {
+      font-size: clamp(0.95rem, 4.1vw, 1.2rem);
+      justify-content: flex-start;
+    }
+
+    .contact__trust {
+      justify-items: start;
+    }
   }
 </style>
 

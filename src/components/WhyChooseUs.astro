@@ -1,46 +1,147 @@
 ---
-import ResponsiveImage from './ResponsiveImage.astro';
-import QuoteCta from './QuoteCta.astro';
-import { asset } from '../lib/assets';
+import { asset, responsiveImage } from "../lib/assets";
 
 const cards = [
-  { image: '/images/sections/07-why-choose/card-top-1.png', title: 'Costos competitivos y transparentes', gradient: false },
-  { image: '/images/sections/07-why-choose/card-top-2.png', title: 'Entregas rápidas y eficientes', gradient: false },
-  { image: '/images/sections/07-why-choose/card-top-3.png', title: 'Soporte durante todo el proceso', gradient: false },
-  { image: '/images/sections/07-why-choose/card-bottom-1.png', title: 'Agentes operativos en Perú y China', gradient: true },
-  { image: '/images/sections/07-why-choose/card-bottom-2.png', title: 'Almacenes propios en China y Perú', gradient: true },
-  { image: '/images/sections/07-why-choose/card-bottom-3.png', title: '+10 años de experiencia importando', gradient: true },
+  {
+    image: "/images/sections/07-why-choose/card-top-1.png",
+    mobileImage: "/images/sections/07-why-choose/card-top-1-mobile.png",
+    gradient: false,
+    titleParts: [
+      { text: "Costos ", semibold: false },
+      { text: "competitivos y transparentes", semibold: true },
+    ],
+  },
+  {
+    image: "/images/sections/07-why-choose/card-top-2.png",
+    mobileImage: "/images/sections/07-why-choose/card-top-2-mobile.png",
+    gradient: false,
+    titleParts: [
+      { text: "Entregas", semibold: false },
+      { text: " rápidas y eficientes", semibold: true },
+    ],
+  },
+  {
+    image: "/images/sections/07-why-choose/card-top-3.png",
+    mobileImage: "/images/sections/07-why-choose/card-top-3-mobile.png",
+    gradient: false,
+    titleParts: [
+      { text: "Soporte", semibold: false },
+      { text: " durante todo el proceso", semibold: true },
+    ],
+  },
+  {
+    image: "/images/sections/07-why-choose/card-bottom-1.png",
+    mobileImage: "/images/sections/07-why-choose/card-bottom-1-mobile.png",
+    gradient: true,
+    imageCrop: "crop-a",
+    titleParts: [
+      { text: "Agentes operativos en ", semibold: false },
+      { text: "Perú y China", semibold: true },
+    ],
+  },
+  {
+    image: "/images/sections/07-why-choose/card-bottom-2.png",
+    mobileImage: "/images/sections/07-why-choose/card-bottom-2-mobile.png",
+    gradient: true,
+    imageCrop: "crop-b",
+    titleParts: [
+      { text: "Almacenes propios en ", semibold: false },
+      { text: "China y Perú", semibold: true },
+    ],
+  },
+  {
+    image: "/images/sections/07-why-choose/card-bottom-3.png",
+    mobileImage: "/images/sections/07-why-choose/card-bottom-3-mobile.png",
+    gradient: true,
+    imageCrop: "crop-c",
+    titleParts: [
+      { text: "+10 años", semibold: true },
+      { text: " de experiencia importando", semibold: false },
+    ],
+  },
 ];
 ---
 
 <section class="why section-gray site-section--lg">
   <div class="site-container">
-    <div class="why__heading">
-      <img src={asset('/images/sections/03-what-is/icon-box.svg')} alt="" class="why__icon" aria-hidden="true" />
-      <h2 class="why__title font-epilogue font-medium text-black">
-        ¿Por qué <span class="font-semibold text-probusiness-naranja">elegirnos?</span>
-      </h2>
-    </div>
+    <header class="why__heading">
+      <div class="why__heading-row">
+        <img
+          src={asset("/images/sections/03-what-is/icon-box.svg")}
+          alt=""
+          class="why__icon"
+          aria-hidden="true"
+        />
+        <h2 class="why__title section-title font-epilogue font-medium text-black">
+          <span class="why__title-line">¿Por qué</span>
+          <span
+            class="why__title-line why__title-accent font-semibold text-probusiness-naranja"
+            >elegirnos?</span
+          >
+        </h2>
+      </div>
+    </header>
 
     <div class="why__grid">
       {
-        cards.map((card) => (
-          <article class:list={['why__card', card.gradient ? 'why__card--gradient' : 'why__card--white']}>
-            <div class="why__card-media">
-              <ResponsiveImage src={card.image} alt="" class="why__card-img" sizes="(max-width: 640px) 100vw, 33vw" />
+        cards.map((card) => {
+          const cardImageDesktop = responsiveImage(card.image);
+          const cardImageMobile = responsiveImage(card.mobileImage);
+
+          return (
+          <article
+            class:list={[
+              "why__card",
+              card.gradient ? "why__card--gradient" : "why__card--white",
+            ]}
+          >
+            <div
+              class:list={[
+                "why__card-media",
+                card.imageCrop && `why__card-media--${card.imageCrop}`,
+              ]}
+            >
+              <picture>
+                <source
+                  media="(max-width: 1023px)"
+                  type="image/webp"
+                  srcset={cardImageMobile.webpSrcset}
+                  sizes={cardImageMobile.sizes}
+                />
+                <source
+                  type="image/webp"
+                  srcset={cardImageDesktop.webpSrcset}
+                  sizes={cardImageDesktop.sizes}
+                />
+                <img
+                  src={cardImageDesktop.fallback}
+                  alt=""
+                  class="why__card-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
             </div>
-            <p class:list={['why__card-title font-epilogue font-medium', card.gradient ? 'text-white' : 'text-black']}>
-              {card.title}
+            <p
+              class:list={[
+                "why__card-title font-epilogue font-medium",
+                card.gradient ? "text-white" : "text-black",
+              ]}
+            >
+              {card.titleParts.map((part) =>
+                part.semibold ? (
+                  <span class="font-semibold">{part.text}</span>
+                ) : (
+                  <span>{part.text}</span>
+                ),
+              )}
             </p>
           </article>
-        ))
+          );
+        })
       }
     </div>
 
-    <div class="why__cta">
-      <p class="why__cta-text font-epilogue text-black">Asesoría rápida, clara y sin compromiso</p>
-      <QuoteCta />
-    </div>
   </div>
 </section>
 
@@ -49,48 +150,111 @@ const cards = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
     text-align: center;
     margin-bottom: clamp(2rem, calc(64 / 3973 * 100vw), 3.5rem);
   }
 
-  @media (min-width: 1024px) {
-    .why__heading {
-      flex-direction: row;
-      justify-content: center;
-    }
+  .why__heading-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.125rem, calc(4 / 3973 * 100vw), 0.25rem);
   }
 
   .why__icon {
     width: clamp(3rem, calc(271 / 3973 * 100vw), 10.5rem);
     height: auto;
+    aspect-ratio: 270.775 / 287.874;
+    flex-shrink: 0;
+    margin-right: clamp(-1.25rem, calc(-48 / 3973 * 100vw), -2.75rem);
   }
 
   .why__title {
-    font-size: clamp(1.35rem, calc(140 / 3973 * 100vw), 4.23rem);
-    line-height: 1.03;
-    letter-spacing: -0.06em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .why__title-line {
+    display: block;
+  }
+
+  .why__title-accent {
+    color: var(--color-probusiness-naranja);
   }
 
   .why__grid {
     display: grid;
-    gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
-    grid-template-columns: 1fr;
+    gap: clamp(1.25rem, calc(84 / 3973 * 100vw), 2rem)
+      clamp(1rem, calc(95 / 3973 * 100vw), 2.5rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  @media (min-width: 768px) {
+  @media (max-width: 1023px) {
+    .why__heading {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .why__heading-row {
+      width: 80%;
+      max-width: 80%;
+      margin-inline: auto;
+      justify-content: center ;
+      align-items: center;
+      gap: clamp(0.5rem, calc(16 / 3973 * 100vw), 1rem);
+    }
+
+    .why__icon {
+      width: clamp(2.75rem, 14vw, 4rem);
+      margin-right: 0;
+      margin-top: 0.1em;
+    }
+
     .why__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.5rem, calc(24 / 3973 * 100vw), 1rem)
+        clamp(0.35rem, calc(16 / 3973 * 100vw), 0.75rem);
+    }
+
+    .why__card {
+      min-height: 0;
+    }
+
+    .why__card-media {
+      height: auto;
+      aspect-ratio: 512 / 460;
+      border-radius: var(--radius-ui) var(--radius-ui) 0 0;
+    }
+
+    .why__card-media picture,
+    .why__card-media :global(.why__card-img) {
+      border-radius: var(--radius-ui) var(--radius-ui) 0 0;
+    }
+
+    .why__card-img,
+    .why__card :global(.why__card-img) {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .why__card-title {
+      flex: 0 0 auto;
+      padding: clamp(0.5rem, calc(16 / 3973 * 100vw), 1rem)
+        clamp(0.35rem, calc(10 / 3973 * 100vw), 0.75rem);
+      font-size: clamp(0.55rem, calc(32 / 3973 * 100vw), 0.9rem);
+      line-height: 1.05;
     }
   }
 
   .why__card {
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
-    border: 1px solid #aaa;
+    border-radius: var(--radius-ui);
     overflow: hidden;
-    min-height: clamp(14rem, calc(847 / 3973 * 100vw), 26rem);
+    height: auto;
+    min-height: 0;
   }
 
   .why__card--white {
@@ -102,40 +266,100 @@ const cards = [
   }
 
   .why__card-media {
-    flex: 1;
+    flex-shrink: 0;
     overflow: hidden;
-    border-radius: 20px 20px 0 0;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-ui) var(--radius-ui) 0 0;
   }
 
-  .why__card--gradient .why__card-media {
-    border-radius: 20px 20px 0 0;
+  .why__card-media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
   }
 
   .why__card-img,
   .why__card :global(.why__card-img) {
     display: block;
     width: 100%;
-    height: clamp(9rem, calc(579 / 3973 * 100vw), 18rem);
+    height: 100%;
     object-fit: cover;
     object-position: center;
   }
 
+  @media (min-width: 1024px) {
+    .why__heading-row {
+      gap: clamp(1rem, calc(40 / 3973 * 100vw), 2rem);
+    }
+
+    .why__icon {
+      margin-right: 0;
+    }
+
+    .why__card {
+      min-height: clamp(14rem, calc(847 / 3973 * 100vw), 26rem);
+    }
+
+    .why__card-media {
+      height: clamp(9rem, calc(579 / 3973 * 100vw), 18rem);
+    }
+
+    .why__card-title {
+      flex: 1;
+    }
+
+    .why__card-media--crop-a :global(.why__card-img) {
+      height: 146%;
+      object-position: top center;
+    }
+
+    .why__card-media--crop-b :global(.why__card-img) {
+      height: 122%;
+      object-position: center 15%;
+    }
+
+    .why__card-media--crop-c :global(.why__card-img) {
+      height: 146%;
+      object-position: center 12%;
+    }
+  }
+
   .why__card-title {
-    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem);
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem)
+      clamp(0.75rem, calc(24 / 3973 * 100vw), 1.5rem);
     font-size: clamp(0.75rem, calc(65 / 3973 * 100vw), 1.96rem);
     line-height: 0.98;
     letter-spacing: -0.01em;
     text-align: center;
   }
 
+  .why__card-title span {
+    display: inline;
+  }
+
   .why__cta {
-    margin-top: clamp(2rem, calc(64 / 3973 * 100vw), 4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, calc(1474 / 3973 * 100vw));
+    margin: clamp(2rem, calc(64 / 3973 * 100vw), 4rem) auto 0;
     text-align: center;
   }
 
+  .why__cta :global(.quote-cta) {
+    width: 100%;
+    max-width: none;
+  }
+
   .why__cta-text {
+    margin: 0 0 clamp(1rem, calc(42 / 3973 * 100vw), 2rem);
     font-size: clamp(0.875rem, calc(65 / 3973 * 100vw), 1.96rem);
     line-height: 1.26;
-    margin-bottom: 1.5rem;
   }
 </style>

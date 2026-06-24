@@ -12,7 +12,7 @@ const testimonials = [
 
 <section id="testimonios" class="section-white site-section--lg">
   <div class="site-container">
-    <h2 class="testimonials__title mx-auto max-w-5xl text-center font-epilogue font-medium text-black">
+    <h2 class="testimonials__title section-title mx-auto max-w-5xl text-center font-epilogue font-medium text-black">
       Personas como tú<br />
       <span class="font-semibold">ya recibieron su mercadería</span>
     </h2>
@@ -28,10 +28,10 @@ const testimonials = [
                   <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
                 </div>
               </div>
-              <div class="testimonials-card__copy">
-                <p class="testimonials-card__label">Caso de éxito</p>
-                <p class="testimonials-card__name">{item.name}</p>
-              </div>
+            </div>
+            <div class="testimonials-card__copy testimonials-card__copy--below">
+              <p class="testimonials-card__label">Caso de éxito</p>
+              <p class="testimonials-card__name">{item.name}</p>
             </div>
           </article>
         ))
@@ -41,11 +41,13 @@ const testimonials = [
     <div class="testimonials__grid hidden lg:grid">
       {
         testimonials.map((item) => (
-          <article class="testimonials-card">
-            <ResponsiveImage src={item.image} alt={`Caso de éxito: ${item.name}`} class="testimonials-card__img" sizes="25vw" />
-            <div class="testimonials-card__overlay">
-              <div class="testimonials-card__play-wrap">
-                <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
+          <article class="testimonials__item">
+            <div class="testimonials-card">
+              <ResponsiveImage src={item.image} alt={`Caso de éxito: ${item.name}`} class="testimonials-card__img" sizes="25vw" />
+              <div class="testimonials-card__overlay">
+                <div class="testimonials-card__play-wrap">
+                  <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
+                </div>
               </div>
             </div>
             <div class="testimonials-card__copy testimonials-card__copy--below">
@@ -61,9 +63,6 @@ const testimonials = [
 
 <style>
   .testimonials__title {
-    font-size: clamp(1.35rem, calc(140 / 3973 * 100vw), 4.23rem);
-    line-height: 0.87;
-    letter-spacing: -0.06em;
     margin-bottom: clamp(1.5rem, calc(64 / 3973 * 100vw), 3.5rem);
   }
 
@@ -72,10 +71,16 @@ const testimonials = [
     gap: clamp(1rem, calc(32 / 3973 * 100vw), 1.75rem);
   }
 
+  .testimonials__item,
+  .testimonials-carousel__slide {
+    display: flex;
+    flex-direction: column;
+  }
+
   .testimonials-card {
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: var(--radius-ui);
   }
 
   .testimonials-card__img,
@@ -117,19 +122,9 @@ const testimonials = [
     object-fit: contain;
   }
 
-  .testimonials-card__copy {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    padding: clamp(1rem, calc(32 / 3973 * 100vw), 2rem) clamp(0.75rem, calc(20 / 3973 * 100vw), 1.25rem);
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.82) 100%);
-    text-align: center;
-  }
-
   .testimonials-card__copy--below {
-    position: static;
-    background: none;
     padding-top: clamp(0.75rem, calc(20 / 3973 * 100vw), 1.25rem);
+    padding-inline: 0;
     text-align: center;
   }
 
@@ -144,7 +139,6 @@ const testimonials = [
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.92);
   }
 
   .testimonials-card__name {
@@ -154,7 +148,6 @@ const testimonials = [
     font-weight: 500;
     text-transform: uppercase;
     line-height: 1.11;
-    color: #fff;
   }
 
   .testimonials-carousel {
@@ -188,6 +181,14 @@ const testimonials = [
     .testimonials-carousel__slide {
       flex: 0 0 78%;
       scroll-snap-align: center;
+    }
+
+    .testimonials-card__copy--below .testimonials-card__label {
+      font-size: clamp(0.8rem, calc(48 / 3973 * 100vw), 1rem);
+    }
+
+    .testimonials-card__copy--below .testimonials-card__name {
+      font-size: clamp(1.05rem, calc(72 / 3973 * 100vw), 1.45rem);
     }
   }
 </style>

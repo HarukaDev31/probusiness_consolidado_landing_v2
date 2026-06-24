@@ -19,23 +19,3 @@
     height: clamp(8rem, 38vw, 11rem);
   }
 }
-
-@media (max-width: 480px) {
-  .maritime__dates {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .maritime__date {
-    min-width: 0;
-    min-height: clamp(6rem, 28vw, 9rem);
-  }
-
-  .maritime__day {
-    font-size: clamp(2rem, 12vw, 3.5rem);
-  }
-
-  .maritime__month {
-    font-size: clamp(0.875rem, 5vw, 1.25rem);
-  }
-}

@@ -1,1 +1,364 @@
-{}
+{
+  "/images/sections/02-hero/bg-fondo-carga-mobile.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/02-hero/bg-fondo-carga.png": {
+    "widths": [
+      400,
+      960,
+      1920
+    ],
+    "defaultWidth": 1920,
+    "hasAvif": true
+  },
+  "/images/sections/02-hero/hero-visual.png": {
+    "widths": [
+      400,
+      600,
+      960
+    ],
+    "defaultWidth": 960,
+    "hasAvif": true
+  },
+  "/images/sections/03-what-is/bg-wave.png": {
+    "widths": [
+      400,
+      600,
+      960
+    ],
+    "defaultWidth": 960,
+    "hasAvif": true
+  },
+  "/images/sections/03-what-is/step-01.png": {
+    "widths": [
+      400,
+      480
+    ],
+    "defaultWidth": 480,
+    "hasAvif": true
+  },
+  "/images/sections/03-what-is/step-02.png": {
+    "widths": [
+      400,
+      480
+    ],
+    "defaultWidth": 480,
+    "hasAvif": true
+  },
+  "/images/sections/03-what-is/step-03.png": {
+    "widths": [
+      400,
+      480
+    ],
+    "defaultWidth": 480,
+    "hasAvif": true
+  },
+  "/images/sections/03-what-is/step-04.png": {
+    "widths": [
+      400,
+      480
+    ],
+    "defaultWidth": 480,
+    "hasAvif": true
+  },
+  "/images/sections/04-key-benefit/container.png": {
+    "widths": [
+      400,
+      600,
+      960
+    ],
+    "defaultWidth": 960,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-01.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-02.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-03.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-04.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-05.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-06.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-07.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-08.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-09.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-10.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-11.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/05-how-it-works/step-12.png": {
+    "widths": [
+      400,
+      480
+    ],
+    "defaultWidth": 480,
+    "hasAvif": true
+  },
+  "/images/sections/06-warranty/shield.png": {
+    "widths": [
+      500
+    ],
+    "defaultWidth": 500,
+    "hasAvif": false
+  },
+  "/images/sections/07-why-choose/card-bottom-1-mobile.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-bottom-1.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-bottom-2-mobile.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-bottom-2.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-bottom-3-mobile.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-bottom-3.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-top-1-mobile.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-top-1.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-top-2-mobile.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-top-2.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-top-3-mobile.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/07-why-choose/card-top-3.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/08-testimonials/card-1.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/08-testimonials/card-2.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/08-testimonials/card-3.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/08-testimonials/card-4.png": {
+    "widths": [
+      400,
+      480,
+      600
+    ],
+    "defaultWidth": 600,
+    "hasAvif": true
+  },
+  "/images/sections/09-maritime/bg-ship.png": {
+    "widths": [
+      400,
+      960,
+      1920
+    ],
+    "defaultWidth": 1920,
+    "hasAvif": true
+  },
+  "/images/sections/10-contact/photo-mobile.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  },
+  "/images/sections/10-contact/photo.png": {
+    "widths": [
+      400,
+      600,
+      768
+    ],
+    "defaultWidth": 768,
+    "hasAvif": true
+  }
+}

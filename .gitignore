@@ -2,6 +2,11 @@
 dist/
 cdn-assets/images/
 cdn-assets/videos/
+
+# local asset sources (served from CDN in prod)
+assets-source/
+public/images/
+public/favicon.svg
 # generated types
 .astro/
 
