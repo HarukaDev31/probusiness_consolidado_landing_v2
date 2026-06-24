@@ -95,6 +95,7 @@ const footerStats = [
       display: flex;
       justify-content: flex-end;
       flex-wrap: wrap;
+      align-items: start;
       gap: clamp(1.5rem, calc(48 / 3973 * 100vw), 3.5rem);
     }
 
@@ -104,23 +105,28 @@ const footerStats = [
   }
 
   .footer-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    display: grid;
+    grid-template-rows: clamp(2rem, calc(166 / 3973 * 100vw), 5rem) auto;
+    justify-items: center;
+    align-content: start;
     gap: clamp(0.35rem, calc(12 / 3973 * 100vw), 0.75rem);
+    text-align: center;
   }
 
   .footer-stat__logo--ccl,
   .footer-stat :global(.footer-stat__logo--ccl) {
-    height: clamp(2rem, calc(153 / 3973 * 100vw), 4.5rem);
+    height: auto;
+    max-height: clamp(2rem, calc(153 / 3973 * 100vw), 4.5rem);
     width: auto;
+    align-self: center;
     filter: none;
   }
 
   .footer-stat__logo--china {
-    height: clamp(2rem, calc(207 / 3973 * 100vw), 5.5rem);
+    height: auto;
+    max-height: clamp(2rem, calc(207 / 3973 * 100vw), 5.5rem);
     width: clamp(2rem, calc(207 / 3973 * 100vw), 5.5rem);
+    align-self: center;
     filter: brightness(0) invert(1);
   }
 
@@ -131,10 +137,11 @@ const footerStats = [
     line-height: 0.97;
     letter-spacing: -0.06em;
     color: #fff;
-    min-height: clamp(2rem, calc(166 / 3973 * 100vw), 5rem);
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
   }
 
   .footer-stat__label {
@@ -145,6 +152,8 @@ const footerStats = [
     letter-spacing: -0.01em;
     color: rgba(255, 255, 255, 0.95);
     max-width: 12ch;
+    text-align: center;
+    justify-self: center;
   }
 
   .footer-copy {
@@ -179,11 +188,29 @@ const footerStats = [
 
     .footer-stats {
       grid-area: stats;
+      align-items: start;
+    }
+
+    .footer-stat {
+      grid-template-rows: clamp(2.75rem, 13vw, 3.5rem) auto;
+      gap: clamp(0.35rem, 2vw, 0.5rem);
+    }
+
+    .footer-stat__logo--ccl,
+    .footer-stat :global(.footer-stat__logo--ccl),
+    .footer-stat__logo--china {
+      max-height: clamp(2.5rem, 11vw, 3.25rem);
+    }
+
+    .footer-stat__logo--china {
+      width: clamp(2.5rem, 11vw, 3.25rem);
     }
 
     .footer-stat__label {
       font-size: clamp(0.8rem, 3.6vw, 1rem);
-      max-width: none;
+      max-width: 11ch;
+      text-align: center;
+      justify-self: center;
     }
 
     .footer-copy {
