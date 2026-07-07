@@ -2,7 +2,7 @@
 import { asset, responsiveImage } from '../lib/assets';
 import { leadFormConfig } from '../lib/leadForm';
 
-const { apiUrl, formToken, campaignCode, graciasPath } = leadFormConfig;
+const { apiUrl, formToken, campaignCode, formSource, graciasPath } = leadFormConfig;
 
 const contactPhotoDesktop = responsiveImage('/images/sections/10-contact/photo.png', {
   sizes: '(max-width: 1023px) 0px, 42vw',
@@ -71,6 +71,7 @@ const trustItems = [
               data-api-url={apiUrl}
               data-form-token={formToken}
               data-campaign-code={campaignCode}
+              data-form-source={formSource}
               data-gracias-path={graciasPath}
             >
               <div class="contact__field" data-field="nombre">
@@ -483,6 +484,7 @@ const trustItems = [
     const apiUrl = form.dataset.apiUrl;
     const formToken = form.dataset.formToken;
     const campaignCode = form.dataset.campaignCode;
+    const formSource = form.dataset.formSource ?? 'landing_consolidado_v2';
     const graciasPath = form.dataset.graciasPath ?? '/gracias';
 
     if (!apiUrl) {
@@ -496,13 +498,15 @@ const trustItems = [
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(formToken ? { 'X-Form-Token': formToken } : {}),
+          Accept: 'application/json',
+          ...(formToken ? { Authorization: `Bearer ${formToken}` } : {}),
         },
         body: JSON.stringify({
           nombre: data.get('nombre'),
           whatsapp: data.get('whatsapp'),
-          proveedor_china: data.get('proveedor_china'),
-          campaign_code: campaignCode,
+          proveedor: data.get('proveedor_china'),
+          codigo_campana: campaignCode,
+          form_source: formSource,
         }),
       });
       if (!res.ok) throw new Error();
