@@ -179,6 +179,7 @@ const stats = [
   .hero__mobile-visual {
     position: relative;
     overflow: hidden;
+    background: #ff5410;
   }
 
   @media (max-width: 1023px) {
@@ -224,36 +225,6 @@ const stats = [
       width: clamp(9rem, 42vw, 12.5rem);
       height: auto;
     }
-  }
-
-  .hero__mobile-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      #ff5410 0%,
-      rgba(255, 84, 16, 0.55) 22%,
-      rgba(255, 84, 16, 0.15) 45%,
-      transparent 65%
-    );
-  }
-
-  .hero__mobile-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: linear-gradient(
-      90deg,
-      #ff5410 0%,
-      rgba(255, 84, 16, 0.65) 14%,
-      rgba(255, 84, 16, 0.15) 38%,
-      transparent 58%
-    );
   }
 
   .hero__mobile-bg,

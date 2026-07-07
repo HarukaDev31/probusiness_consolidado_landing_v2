@@ -1,17 +1,50 @@
----
-import Layout from '../layouts/Layout.astro';
----
-
-<Layout title="Gracias | ProBusiness Carga Consolidada" description="Recibimos tu solicitud. Un asesor te contactará pronto.">
-  <main class="flex min-h-screen items-center justify-center bg-black px-6 text-center">
-    <div>
-      <h1 class="font-sora text-3xl font-semibold text-white lg:text-5xl">¡Gracias por tu interés!</h1>
-      <p class="mt-4 font-epilogue text-lg text-white/80 lg:text-xl">
-        Un asesor de ProBusiness te contactará pronto para cotizar tu importación.
-      </p>
-      <a href="/" class="btn-primary mt-8 inline-block px-8 py-4 font-epilogue font-bold text-white">
-        Volver al inicio
-      </a>
-    </div>
-  </main>
-</Layout>
+---
+import Layout from '../layouts/Layout.astro';
+
+const homePath = '/';
+---
+
+<Layout title="Gracias | ProBusiness Carga Consolidada" description="Recibimos tu solicitud. Un asesor te contactará pronto.">
+  <script is:inline define:vars={{ homePath }}>
+    (function () {
+      const SUCCESS_FLAG_KEY = 'leadFormConfirmed';
+      const SUCCESS_AT_KEY = 'leadFormConfirmedAt';
+      const ACCESS_TTL_MS = 10 * 60 * 1000;
+      const hasConfirmed = sessionStorage.getItem(SUCCESS_FLAG_KEY) === '1';
+      const confirmedAt = Number(sessionStorage.getItem(SUCCESS_AT_KEY) || '0');
+      const isFresh =
+        Number.isFinite(confirmedAt) && Date.now() - confirmedAt <= ACCESS_TTL_MS;
+
+      if (!hasConfirmed || !isFresh) {
+        window.location.replace(homePath);
+        return;
+      }
+
+      document.documentElement.classList.add('thanks-authorized');
+      sessionStorage.removeItem(SUCCESS_FLAG_KEY);
+      sessionStorage.removeItem(SUCCESS_AT_KEY);
+    })();
+  </script>
+
+  <main class="thanks-page flex min-h-screen items-center justify-center bg-black px-6 text-center">
+    <div>
+      <h1 class="font-sora text-3xl font-semibold text-white lg:text-5xl">¡Gracias por tu interés!</h1>
+      <p class="mt-4 font-epilogue text-lg text-white/80 lg:text-xl">
+        Un asesor de ProBusiness te contactará pronto para cotizar tu importación.
+      </p>
+      <a href={homePath} class="btn-primary mt-8 inline-block px-8 py-4 font-epilogue font-bold text-white">
+        Volver al inicio
+      </a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .thanks-page {
+    display: none;
+  }
+
+  :global(html.thanks-authorized) .thanks-page {
+    display: flex;
+  }
+</style>

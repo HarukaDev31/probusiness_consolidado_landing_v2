@@ -12,10 +12,7 @@ const contactPhotoMobile = responsiveImage('/images/sections/10-contact/photo-mo
 });
 
 const trustItems = [
-  'Respaldado por la CCL',
-  '+5 000 clientes satisfechos',
-  'Sede propia en China',
-  '+10 años de experiencia',
+ 
 ];
 ---
 
@@ -68,11 +65,6 @@ const trustItems = [
               id="contact-form"
               class="contact__form"
               novalidate
-              data-api-url={apiUrl}
-              data-form-token={formToken}
-              data-campaign-code={campaignCode}
-              data-form-source={formSource}
-              data-gracias-path={graciasPath}
             >
               <div class="contact__field" data-field="nombre">
                 <label for="nombre" class="contact__label">Nombre Completo</label>
@@ -98,10 +90,10 @@ const trustItems = [
                 />
               </div>
 
-              <div class="contact__field" data-field="proveedor_china">
+              <div class="contact__field" data-field="proveedor">
                 <label for="proveedor" class="contact__label">¿Ya tienes tu proveedor en China?</label>
                 <div class="contact__select-wrap">
-                  <select id="proveedor" name="proveedor_china" class="contact__input contact__select" required>
+                  <select id="proveedor" name="proveedor" class="contact__input contact__select" required>
                     <option value="" disabled selected>Selecciona una opción</option>
                     <option value="si">Sí, ya tengo proveedor</option>
                     <option value="no">No, necesito ayuda</option>
@@ -114,7 +106,7 @@ const trustItems = [
               <button type="submit" class="contact__submit btn-primary font-epilogue font-bold text-white">
                 Quiero importar
               </button>
-              <p id="form-feedback" class="contact__feedback font-epilogue"></p>
+              <p id="form-feedback" class="contact__feedback font-epilogue" role="status" aria-live="polite"></p>
             </form>
           </div>
           </div>
@@ -388,6 +380,14 @@ const trustItems = [
     margin: 0;
   }
 
+  .contact__feedback:empty {
+    display: none;
+  }
+
+  .contact__feedback[data-state='error'] {
+    color: #c2410c;
+  }
+
   .contact__trust {
     display: grid;
     gap: clamp(0.75rem, calc(24 / 3973 * 100vw), 1.25rem);
@@ -475,44 +475,102 @@ const trustItems = [
   }
 </style>
 
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const feedback = document.getElementById('form-feedback');
+<script define:vars={{ leadEndpoint: apiUrl, leadToken: formToken, campaignCode, formSource, graciasPath }}>
+  (function () {
+    const SUCCESS_FLAG_KEY = 'leadFormConfirmed';
+    const SUCCESS_AT_KEY = 'leadFormConfirmedAt';
+    const form = document.getElementById('contact-form');
+    const feedback = document.getElementById('form-feedback');
+    const submitBtn = form?.querySelector('.contact__submit');
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const apiUrl = form.dataset.apiUrl;
-    const formToken = form.dataset.formToken;
-    const campaignCode = form.dataset.campaignCode;
-    const formSource = form.dataset.formSource ?? 'landing_consolidado_v2';
-    const graciasPath = form.dataset.graciasPath ?? '/gracias';
+    if (!form || !feedback) return;
 
-    if (!apiUrl) {
-      if (feedback) feedback.textContent = 'Formulario en modo demo — configura PUBLIC_LANDING_CONSOLIDADO_API_URL en .env';
-      return;
+    function setFeedback(text, state) {
+      feedback.textContent = text;
+      if (state) {
+        feedback.dataset.state = state;
+      } else {
+        delete feedback.dataset.state;
+      }
     }
 
-    const data = new FormData(form);
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          ...(formToken ? { Authorization: `Bearer ${formToken}` } : {}),
-        },
-        body: JSON.stringify({
-          nombre: data.get('nombre'),
-          whatsapp: data.get('whatsapp'),
-          proveedor: data.get('proveedor_china'),
-          codigo_campana: campaignCode,
-          form_source: formSource,
-        }),
-      });
-      if (!res.ok) throw new Error();
-      window.location.href = graciasPath;
-    } catch {
-      if (feedback) feedback.textContent = 'No pudimos enviar tu solicitud. Intenta de nuevo.';
+    async function sendLead() {
+      if (!form.reportValidity()) return;
+
+      if (!leadEndpoint || !leadToken) {
+        setFeedback(
+          'Falta configurar el envío del formulario (variables de entorno en el proyecto).',
+          'error',
+        );
+        return;
+      }
+
+      setFeedback('');
+      if (submitBtn instanceof HTMLButtonElement) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.label = submitBtn.textContent || '';
+        submitBtn.textContent = 'Enviando…';
+      }
+
+      const fd = new FormData(form);
+      const body = {
+        nombre: String(fd.get('nombre') || '').trim(),
+        whatsapp: String(fd.get('whatsapp') || '').trim(),
+        proveedor: String(fd.get('proveedor') || '').trim(),
+        codigo_campana: campaignCode,
+        form_source: formSource,
+      };
+
+      try {
+        const res = await fetch(leadEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + leadToken,
+          },
+          body: JSON.stringify(body),
+        });
+
+        const data = await res.json().catch(function () {
+          return {};
+        });
+
+        if (res.ok) {
+          if (typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead');
+          }
+          sessionStorage.setItem(SUCCESS_FLAG_KEY, '1');
+          sessionStorage.setItem(SUCCESS_AT_KEY, String(Date.now()));
+          form.reset();
+          window.location.assign(graciasPath);
+          return;
+        }
+
+        if (res.status === 422 && data.errors) {
+          const first = Object.values(data.errors)[0];
+          const msg = Array.isArray(first) ? first[0] : String(first);
+          setFeedback(msg || data.message || 'Revisa los datos e inténtalo de nuevo.', 'error');
+          return;
+        }
+
+        setFeedback(
+          data.message || 'No se pudo enviar. Inténtalo más tarde o escríbenos por WhatsApp.',
+          'error',
+        );
+      } catch {
+        setFeedback('Error de red. Comprueba tu conexión o inténtalo más tarde.', 'error');
+      } finally {
+        if (submitBtn instanceof HTMLButtonElement) {
+          submitBtn.disabled = false;
+          if (submitBtn.dataset.label) submitBtn.textContent = submitBtn.dataset.label;
+        }
+      }
     }
-  });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      void sendLead();
+    });
+  })();
 </script>
