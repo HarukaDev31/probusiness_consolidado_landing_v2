@@ -3,10 +3,26 @@ import ResponsiveImage from './ResponsiveImage.astro';
 import { asset } from '../lib/assets';
 
 const testimonials = [
-  { image: '/images/sections/08-testimonials/card-1.png', name: 'Jhonny — Racks para TV' },
-  { image: '/images/sections/08-testimonials/card-2.png', name: 'Jhonny — Racks para TV' },
-  { image: '/images/sections/08-testimonials/card-3.png', name: 'Jhonny — Racks para TV' },
-  { image: '/images/sections/08-testimonials/card-4.png', name: 'Jhonny — Racks para TV' },
+  {
+    image: '/images/sections/card-1.png',
+    video: '/videos/sections/testimonio-cesar-ortiz.mp4',
+    name: 'Cesar Ortíz — Máquinas de gimnasio',
+  },
+  {
+    image: '/images/sections/card-2.png',
+    video: '/videos/sections/testimonio-franco-kemper.mp4',
+    name: 'Franco Kemper — Pantallas LED',
+  },
+  {
+    image: '/images/sections/card-3.png',
+    video: '/videos/sections/testimonio-javier-rios.mp4',
+    name: 'Javier Rios — Infladores industriales',
+  },
+  {
+    image: '/images/sections/card-4.png',
+    video: '/videos/sections/testimonio-miguel-alarcon.mp4',
+    name: 'Miguel Alarcón — Motos eléctricas',
+  },
 ];
 ---
 
@@ -21,13 +37,14 @@ const testimonials = [
       {
         testimonials.map((item) => (
           <article class="testimonials-carousel__slide">
-            <div class="testimonials-card">
+            <div class="testimonials-card" data-video-src={asset(item.video)}>
               <ResponsiveImage src={item.image} alt={`Caso de éxito: ${item.name}`} class="testimonials-card__img" sizes="78vw" />
-              <div class="testimonials-card__overlay">
-                <div class="testimonials-card__play-wrap">
-                  <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
-                </div>
-              </div>
+              <video class="testimonials-card__video" playsinline controls preload="none" hidden></video>
+              <button type="button" class="testimonials-card__overlay" aria-label={`Reproducir video de ${item.name}`}>
+                <span class="testimonials-card__play-wrap">
+                  <img src={asset('/images/sections/play.svg')} alt="" class="testimonials-card__play" />
+                </span>
+              </button>
             </div>
             <div class="testimonials-card__copy testimonials-card__copy--below">
               <p class="testimonials-card__label">Caso de éxito</p>
@@ -42,13 +59,14 @@ const testimonials = [
       {
         testimonials.map((item) => (
           <article class="testimonials__item">
-            <div class="testimonials-card">
+            <div class="testimonials-card" data-video-src={asset(item.video)}>
               <ResponsiveImage src={item.image} alt={`Caso de éxito: ${item.name}`} class="testimonials-card__img" sizes="25vw" />
-              <div class="testimonials-card__overlay">
-                <div class="testimonials-card__play-wrap">
-                  <img src={asset('/images/sections/08-testimonials/play.svg')} alt="Reproducir" class="testimonials-card__play" />
-                </div>
-              </div>
+              <video class="testimonials-card__video" playsinline controls preload="none" hidden></video>
+              <button type="button" class="testimonials-card__overlay" aria-label={`Reproducir video de ${item.name}`}>
+                <span class="testimonials-card__play-wrap">
+                  <img src={asset('/images/sections/play.svg')} alt="" class="testimonials-card__play" />
+                </span>
+              </button>
             </div>
             <div class="testimonials-card__copy testimonials-card__copy--below">
               <p class="testimonials-card__label">Caso de éxito</p>
@@ -84,11 +102,16 @@ const testimonials = [
   }
 
   .testimonials-card__img,
-  .testimonials-card :global(.testimonials-card__img) {
+  .testimonials-card :global(.testimonials-card__img),
+  .testimonials-card__video {
     display: block;
     width: 100%;
     aspect-ratio: 764 / 1318;
     object-fit: cover;
+  }
+
+  .testimonials-card__video[hidden] {
+    display: none;
   }
 
   .testimonials-card__overlay {
@@ -97,8 +120,18 @@ const testimonials = [
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 0;
+    margin: 0;
+    padding: 0;
     background: rgba(0, 0, 0, 0.15);
     transition: background 0.2s ease;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .testimonials-card__overlay[hidden] {
+    display: none;
   }
 
   .testimonials-card:hover .testimonials-card__overlay {
@@ -218,6 +251,33 @@ const testimonials = [
     });
   }
 
+  function playTestimonialVideo(card) {
+    const src = card.dataset.videoSrc;
+    const video = card.querySelector('.testimonials-card__video');
+    const img = card.querySelector('.testimonials-card__img');
+    const overlay = card.querySelector('.testimonials-card__overlay');
+    if (!src || !video) return;
+
+    document.querySelectorAll('.testimonials-card__video').forEach((other) => {
+      if (other !== video) other.pause();
+    });
+
+    if (!video.src) video.src = src;
+    if (img) img.hidden = true;
+    if (overlay) overlay.hidden = true;
+    video.hidden = false;
+    video.play().catch(() => {});
+  }
+
+  function initTestimonialsVideos() {
+    document.querySelectorAll('.testimonials-card').forEach((card) => {
+      const overlay = card.querySelector('.testimonials-card__overlay');
+      overlay?.addEventListener('click', () => playTestimonialVideo(card), { once: true });
+    });
+  }
+
   initTestimonialsCarousel();
+  initTestimonialsVideos();
   document.addEventListener('astro:page-load', initTestimonialsCarousel);
+  document.addEventListener('astro:page-load', initTestimonialsVideos);
 </script>
