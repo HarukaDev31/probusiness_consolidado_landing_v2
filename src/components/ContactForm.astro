@@ -2,7 +2,7 @@
 import { asset, responsiveImage } from '../lib/assets';
 import { leadFormConfig } from '../lib/leadForm';
 
-const { apiUrl, formToken, campaignCode, graciasPath } = leadFormConfig;
+const { apiUrl, formToken, campaignCode, formSource, graciasPath } = leadFormConfig;
 
 const contactPhotoDesktop = responsiveImage('/images/sections/10-contact/photo.png', {
   sizes: '(max-width: 1023px) 0px, 42vw',
@@ -475,7 +475,7 @@ const trustItems = [
   }
 </style>
 
-<script define:vars={{ leadEndpoint: apiUrl, leadToken: formToken, campaignCode, graciasPath }}>
+<script define:vars={{ leadEndpoint: apiUrl, leadToken: formToken, campaignCode, formSource, graciasPath }}>
   (function () {
     const SUCCESS_FLAG_KEY = 'leadFormConfirmed';
     const SUCCESS_AT_KEY = 'leadFormConfirmedAt';
@@ -518,7 +518,7 @@ const trustItems = [
         whatsapp: String(fd.get('whatsapp') || '').trim(),
         proveedor: String(fd.get('proveedor') || '').trim(),
         codigo_campana: campaignCode,
-        form_source: 'landing_consolidado_v2',
+        form_source: formSource,
       };
 
       try {
