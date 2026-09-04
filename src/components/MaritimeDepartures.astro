@@ -1,10 +1,13 @@
 ---
 import ResponsiveImage from "./ResponsiveImage.astro";
+import { fetchNextDepartures } from "../lib/departures";
 
-const departures = [
+const FALLBACK_DEPARTURES = [
   { day: "14", month: "JULIO" },
   { day: "08", month: "AGOSTO" },
 ];
+
+const departures = (await fetchNextDepartures(2)) ?? FALLBACK_DEPARTURES;
 ---
 
 <section class="maritime section-gray site-section--lg">
@@ -13,8 +16,8 @@ const departures = [
       <div class="maritime__copy">
         <p class="maritime__route font-epilogue text-black/70">China – Perú</p>
         <h2 class="maritime__title section-title font-epilogue font-medium text-black">
-          Próximas salidas<br />
-          marítimas
+          Próximos cierres de <br />
+          contenedores
         </h2>
         <p class="maritime__desc font-epilogue text-black">
           Reserva tu espacio en nuestro{" "}
