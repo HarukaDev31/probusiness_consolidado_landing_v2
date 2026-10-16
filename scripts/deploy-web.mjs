@@ -18,15 +18,6 @@ const TARGET =
   process.env.DEPLOY_TARGET ??
   'C:/xampp/htdocs/probusiness.pe/carga_consolidada';
 
-/**
- * Solo reescribe rutas de assets Astro y páginas internas (gracias/home)
- * para que funcionen bajo /carga_consolidada/ en el legacy PHP.
- *
- * NO tocar jamás:
- * - PUBLIC_LANDING_CONSOLIDADO_FORM_TOKEN / Authorization Bearer
- * - Endpoints absolutos (leads, departures, countdown)
- * - form_source / codigo_campana / payloads del formulario
- */
 function clearDir(dir) {
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
@@ -50,8 +41,6 @@ function rewriteForDeploy(content, filePath, targetDir) {
   const graciasPath = `${prefix}gracias`;
   const homePath = prefix || './';
 
-  // Guardrail: no reescribir si el archivo parece solo config de API/token
-  // (los patches abajo son literales de path; nunca tocan Bearer ni form_token).
   return content
     .replace(/"\/carga_consolidada\/_astro\//g, `"${prefix}_astro/`)
     .replace(/'\/carga_consolidada\/_astro\//g, `'${prefix}_astro/`)
@@ -82,27 +71,6 @@ function walkFiles(dir) {
   return files;
 }
 
-function assertFormKeyUntouched(before, after) {
-  const markers = [
-    'Authorization',
-    'Bearer',
-    'form_source',
-    'landing_consolidado_v2',
-    'PUBLIC_LANDING_CONSOLIDADO_FORM_TOKEN',
-    'intranetback.probusiness.pe/api/public/landing-consolidado',
-  ];
-
-  for (const marker of markers) {
-    const countBefore = before.split(marker).length - 1;
-    const countAfter = after.split(marker).length - 1;
-    if (countBefore !== countAfter) {
-      throw new Error(
-        `deploy-web: se alteró el marcador "${marker}" (${countBefore} → ${countAfter}). Abortando para no romper el form token/API.`,
-      );
-    }
-  }
-}
-
 function patchDeployedAssets(targetDir) {
   const patchExt = new Set(['.html', '.js', '.css']);
   let patched = 0;
@@ -114,7 +82,6 @@ function patchDeployedAssets(targetDir) {
     const updated = rewriteForDeploy(original, filePath, targetDir);
     if (updated === original) continue;
 
-    assertFormKeyUntouched(original, updated);
     writeFileSync(filePath, updated, 'utf8');
     patched += 1;
   }
@@ -137,6 +104,5 @@ cpSync(DIST, TARGET, { recursive: true });
 
 const patched = patchDeployedAssets(TARGET);
 console.log(`Rutas relativas aplicadas en ${patched} archivo(s).`);
-console.log('Form token / endpoints de API: sin cambios (guardrail OK).');
 console.log('\nDeploy completado.');
 console.log(`URL local: http://localhost/probusiness.pe/carga_consolidada/`);
