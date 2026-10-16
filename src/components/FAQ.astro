@@ -1,17 +1,34 @@
 ---
 const faqs = [
-  { q: '¿Cuánto tiempo demora en llegar mi carga?', a: 'El tiempo de tránsito marítimo desde China a Perú suele ser de 35 a 45 días, más el tiempo de nacionalización y entrega local.' },
-  { q: '¿Me ayudan a buscar productos para importar?', a: 'Sí, nuestro equipo puede orientarte sobre productos viables y proveedores según tu presupuesto y objetivo comercial.' },
-  { q: '¿Me ayudan a conseguir proveedores confiables?', a: 'Te asesoramos en la validación de proveedores y en buenas prácticas para reducir riesgos de estafa o mala calidad.' },
-  { q: '¿Qué tipo de carga puedo importar?', a: 'Puedes importar mercancía general sujeta a regulaciones peruanas. Te indicamos restricciones y requisitos según tu producto.' },
-  { q: '¿Puedo importar pequeñas cantidades?', a: 'Sí, la carga consolidada está pensada para que pagues solo por el espacio que ocupas, ideal para volúmenes pequeños o medianos.' },
-  { q: '¿La cotización tiene algún costo?', a: 'La cotización inicial no tiene costo. Solo pagas cuando confirmas tu participación en el embarque.' },
-  { q: '¿Realizan inspecciones o visitas al proveedor?', a: 'Podemos coordinar verificaciones según el servicio contratado para validar producto y empaque antes del embarque.' },
-  { q: '¿Puedo unir carga de varios proveedores?', a: 'Sí, puedes consolidar mercancía de distintos proveedores en nuestro almacén en China en un solo envío a Perú.' },
+  {
+    q: '¿Cuánto tiempo demora en llegar mi carga?',
+    a: 'El tiempo estimado es de 60 días calendario, contados desde la fecha de corte del Contenedor (China) hasta la llegada y entrega de tu mercancía en nuestro almacén en La Victoria, Lima.',
+  },
+  {
+    q: '¿Qué tipo de carga puedo importar?',
+    a: 'Puedes importar mercancía general, siempre que cumpla con las regulaciones y requisitos establecidos en Perú. Si tienes dudas sobre un producto específico, nuestro equipo puede orientarte sobre sus restricciones, permisos y requisitos de importación antes de realizar tu compra.',
+  },
+  {
+    q: '¿Puedo importar pequeñas cantidades?',
+    a: 'Sí, puedes importar pequeñas cantidades. Nuestra Carga Consolidada PRO está pensada para que puedas traer tu mercancía sin necesidad de llenar un contenedor completo.\n\nSin embargo, ten en cuenta que nuestra tarifa mínima es de US$ 380. Por eso, para que el servicio sea rentable para ti, recomendamos que el valor de tus productos sea de mínimo US$ 1,500.',
+  },
+  {
+    q: '¿La cotización tiene algún costo?',
+    a: 'No. La cotización inicial es totalmente gratuita. Te brindamos la información de los costos de tu importación para que puedas evaluar el servicio y tomar una decisión. Solo realizas el pago cuando confirmas tu participación en el embarque.',
+  },
+  {
+    q: '¿Realizan inspecciones o visitas al proveedor?',
+    a: 'Sí. Podemos coordinar inspecciones y verificaciones en China, según el servicio contratado, para comprobar que la mercancía cumpla con lo solicitado, revisando aspectos como cantidad, estado del producto, calidad y empaque antes del embarque.',
+  },
+  {
+    q: '¿Puedo unir carga de varios proveedores?',
+    a: 'Sí. Puedes comprar a diferentes proveedores en China y enviar toda tu mercancía a nuestro almacén. Nosotros aceptamos hasta 3 proveedores sin costo alguno y nos encargamos de recibirla y consolidarla en un solo embarque con destino a Perú, facilitando la gestión de tu importación.',
+  },
 ];
 
-const left = faqs.slice(0, 4);
-const right = faqs.slice(4, 8);
+const mid = Math.ceil(faqs.length / 2);
+const left = faqs.slice(0, mid);
+const right = faqs.slice(mid);
 ---
 
 <section id="faq" class="section-light-gray site-section--lg">
@@ -125,6 +142,7 @@ const right = faqs.slice(4, 8);
     font-size: clamp(0.75rem, calc(32 / 3973 * 100vw), 1.1rem);
     line-height: 1.45;
     margin: 0;
+    white-space: pre-line;
   }
 
   @media (max-width: 1023px) {

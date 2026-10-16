@@ -5,6 +5,6 @@ export const leadFormConfig = {
     '',
   formToken: import.meta.env.PUBLIC_LANDING_CONSOLIDADO_FORM_TOKEN ?? '',
   campaignCode: import.meta.env.PUBLIC_LANDING_CONSOLIDADO_CAMPAIGN_CODE ?? 'jun2026',
-  formSource: 'landing_consolidado_v2',
+  formSource: 'probusiness_pe',
   graciasPath: '/gracias',
 };
