@@ -1,0 +1,14 @@
+# Deploy en Netlify. La rama `qa` publica el entorno de QA (branch deploy) apuntando a la API de QA.
+# Los secretos (PUBLIC_LANDING_CONSOLIDADO_FORM_TOKEN) van en Netlify → Site configuration → Environment variables,
+# con un valor distinto para el contexto "Branch deploys" / rama qa.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"
+
+[context.qa.environment]
+  PUBLIC_LANDING_CONSOLIDADO_LEAD_ENDPOINT = "https://qa-intranetback.probusiness.pe/api/public/landing-consolidado/leads"
+  PUBLIC_LANDING_CONSOLIDADO_DEPARTURES_ENDPOINT = "https://qa-intranetback.probusiness.pe/api/public/landing-consolidado/next-departures"
